@@ -1,0 +1,9 @@
+once_var = "food"
+
+[---]
+
+IO.puts "I like " <> once_var
+
+[---]
+
+<h1>Hello, I like <%= once_var %></h1>

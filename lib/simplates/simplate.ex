@@ -1,12 +1,14 @@
 defmodule Simplate do
   
-  def parse do
-    #[once, every, template] = 
+  def render(file) do
+    {:ok, body} = File.read(file)
 
-    #{_, once_bindings} = Code.eval_string(once)
-    #{_, bindings} = Code.eval_string(every, once_bindings)
 
-    #EEx.eval_string(template, bindings)
+    [once, every, template] = parse_pages(body)
+    {_, once_bindings} = Code.eval_string(once.content)
+    {_, bindings} = Code.eval_string(every.content, once_bindings)
+
+    EEx.eval_string(template.content, bindings)
   end
 
   @doc """
@@ -15,12 +17,13 @@ defmodule Simplate do
   If there's more than two pages, the second page is code *unless it has a specline*, which makes it a template
   """
   def parse_pages(raw) do
-    pages = Regex.split(~r/^\[---+\](?P<header>.*?)(\n|$)/m, raw, include_captures: true) |> Enum.map(fn(p) -> parse_page(p) end)
+    pages = Regex.split(~r/^\[---+\](?P<header>.*?)(\n|$)/m, raw) |> Enum.map(fn(p) -> parse_page(p) end)
     blank = [ %Page{} ] 
 
     case length(pages) do
       1 -> blank ++ blank ++ pages
       2 -> blank ++ pages
+      3 -> pages
     end
   end
 
