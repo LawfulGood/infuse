@@ -3,10 +3,10 @@ defmodule SimplatesTest do
   doctest Aspen
 
   test "loads simple" do
-  	file = "examples/simple.spt"
+    file = "examples/simple.spt"
 
-  	assert String.contains?(Simplates.parse(file), "<h1>Html!! test</h1>") == true
-  	
+    assert String.contains?(Simplates.parse(file), "<h1>Html!! test</h1>") == true
+    
   end
 
   test "the truth" do

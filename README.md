@@ -1,5 +1,7 @@
 # Aspen
 
+[![Build Status](https://travis-ci.org/clone1018/experimental-elixir-aspen.svg?branch=master)](https://travis-ci.org/clone1018/experimental-elixir-aspen)
+
 **TODO: Add description**
 
 ## Installation
