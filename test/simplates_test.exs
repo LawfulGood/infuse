@@ -1,6 +1,6 @@
 defmodule SimplatesTest do
   use ExUnit.Case
-  doctest Aspen
+  doctest Infuse
 
   test "static simplate" do 
     simplate = Simplate.load("test/simplates/static.spt")

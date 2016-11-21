@@ -1,4 +1,4 @@
-defmodule Aspen.Web do
+defmodule Infuse.Web do
   import Plug.Conn
 
   def init(options) do

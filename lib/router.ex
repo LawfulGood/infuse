@@ -1,4 +1,4 @@
-defmodule Aspen.Router do
+defmodule Infuse.Router do
   use Plug.Router
 
   plug :match 

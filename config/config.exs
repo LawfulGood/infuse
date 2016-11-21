@@ -10,18 +10,18 @@ use Mix.Config
 
 # You can configure for your application as:
 #
-#     config :aspen, key: :value
+#     config :infuse, key: :value
 #
 # And access this configuration in your application as:
 #
-#     Application.get_env(:aspen, :key)
+#     Application.get_env(:infuse, :key)
 #
 # Or configure a 3rd-party app:
 #
 #     config :logger, level: :info
 #
 
-config :aspen,
+config :infuse,
     default_content_type: "text/plain",
     default_renderer: "EEx"
 

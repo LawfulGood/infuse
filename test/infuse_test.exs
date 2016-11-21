@@ -1,6 +1,6 @@
 defmodule AspenTest do
   use ExUnit.Case
-  doctest Aspen
+  doctest Infuse
 
   test "the truth" do
     assert 1 + 1 == 2
