@@ -1,0 +1,7 @@
+
+
+:page
+data = foo.bar(request)
+
+:page text/plain
+<%= data %>

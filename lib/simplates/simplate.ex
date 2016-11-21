@@ -1,6 +1,8 @@
 defmodule Simplate do
 
-  @page_regex ~r/^\[---+\](?P<header>.*?)(\n|$)/m
+  @page_regex ~r/^\:page(?P<header>.*?)(\n|$)/m
+  @specline_regex ~r/(?:\s+|^)via\s+/
+  @renderer_regex ~r/via\s+(\w+)/
 
   defstruct file: nil, pages: [], once_bindings: nil  
   
@@ -34,6 +36,24 @@ defmodule Simplate do
       1 -> blank ++ blank ++ pages
       2 -> blank ++ pages
       3 -> pages
+    end
+  end
+
+  @doc """
+  Parses a specline like `media/type via EEx` into a tuple {renderer, content_type}
+  """
+  def parse_specline(line) do
+    Regex.split(@specline_regex, line) |> do_parse_specline
+  end
+
+  defp do_parse_specline([content_type, renderer]) do
+    {renderer, content_type}
+  end
+
+  defp do_parse_specline([strand]) do
+    case Regex.match?(@renderer_regex, strand) do
+      true -> {strand, ""}
+      false -> {"", strand}
     end
   end
 
