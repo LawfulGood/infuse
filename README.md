@@ -2,7 +2,11 @@
 
 [![Build Status](https://travis-ci.org/clone1018/experimental-elixir-infuse.svg?branch=master)](https://travis-ci.org/clone1018/experimental-elixir-infuse)
 
-**TODO: Add description**
+Simple web framework designed to get you up and running.
+
+## Simplates
+
+Coming soon
 
 ## Installation
 
@@ -24,3 +28,7 @@ If [available in Hex](https://hex.pm/docs/publish), the package can be installed
     end
     ```
 
+## Credits & License
+[LICENSE](LICENSE.md)
+
+Entire inspiration and design is from [https://github.com/AspenWeb/aspen.py](https://github.com/AspenWeb/aspen.py) 
