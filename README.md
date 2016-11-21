@@ -1,6 +1,6 @@
 # Infuse
 
-[![Build Status](https://travis-ci.org/clone1018/experimental-elixir-infuse.svg?branch=master)](https://travis-ci.org/clone1018/experimental-elixir-infuse)
+[![Build Status](https://travis-ci.org/clone1018/infuse.svg?branch=master)](https://travis-ci.org/clone1018/infuse)
 
 Simple web framework designed to get you up and running.
 
