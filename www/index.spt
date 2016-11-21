@@ -1,9 +1,11 @@
 once_var = "food"
+rand_once_num = :rand.uniform(100)
 
 [---]
 
 IO.puts "I like " <> once_var
+rand_num = :rand.uniform(10)
 
 [---]
 
-<h1>Hello, I like <%= once_var %></h1>
+<h1>Hello, I like <%= once_var %> my favorite random number is <%= rand_num %> and my non-random number is <%= rand_once_num %></h1>

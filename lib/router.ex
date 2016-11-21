@@ -5,7 +5,8 @@ defmodule Aspen.Router do
   plug :dispatch
 
   match "/*glob" do
-    body = Simplate.render("www/#{glob}.spt")
+    simplate = Simplate.load("www/#{glob}.spt")
+    body = Simplate.render(simplate)
 
     send_resp(conn, 200, body)
   end 

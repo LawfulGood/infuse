@@ -2,6 +2,12 @@ defmodule SimplatesTest do
   use ExUnit.Case
   doctest Aspen
 
+  test "static simplate" do 
+    simplate = Simplate.load("test/simplates/static.spt")
+
+    assert Simplate.render(simplate) == "Hello world!"
+  end
+
   test "parses one page" do
     raw = "One page"
 

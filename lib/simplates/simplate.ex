@@ -1,10 +1,20 @@
 defmodule Simplate do
+
+  @page_regex ~r/^\[---+\](?P<header>.*?)(\n|$)/m
+
+  defstruct file: nil, pages: [], once_bindings: nil  
   
-  def render(file) do
+  def load(file) do
     {:ok, body} = File.read(file)
 
+    pages = parse_pages(body)
+    {_, once_bindings} = Code.eval_string(hd(pages).content)
 
-    [once, every, template] = parse_pages(body)
+    %Simplate{file: file, pages: pages, once_bindings: once_bindings}
+  end
+
+  def render(simplate) do
+    [once, every, template] = simplate.pages
     {_, once_bindings} = Code.eval_string(once.content)
     {_, bindings} = Code.eval_string(every.content, once_bindings)
 
@@ -17,7 +27,7 @@ defmodule Simplate do
   If there's more than two pages, the second page is code *unless it has a specline*, which makes it a template
   """
   def parse_pages(raw) do
-    pages = Regex.split(~r/^\[---+\](?P<header>.*?)(\n|$)/m, raw) |> Enum.map(fn(p) -> parse_page(p) end)
+    pages = Regex.split(@page_regex, raw) |> Enum.map(fn(p) -> parse_page(p) end)
     blank = [ %Page{} ] 
 
     case length(pages) do
