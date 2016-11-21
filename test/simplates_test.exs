@@ -3,7 +3,7 @@ defmodule SimplatesTest do
   doctest Infuse
 
   test "static simplate" do 
-    simplate = Simplate.load("test/simplates/static.spt")
+    simplate = Simplate.load("test/test-simplates/static.spt")
 
     assert Simplate.render(simplate) == "Hello world!"
   end
