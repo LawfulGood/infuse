@@ -1,7 +1,8 @@
-
+once_var = "food"
 
 :page
-data = foo.bar(request)
+
+every_var = "bar"
 
 :page text/plain
-<%= data %>
+<%= once_var <> every_var %>

@@ -8,6 +8,12 @@ defmodule SimplatesTest do
     assert Simplate.render(simplate) == "Hello world!"
   end
 
+  test "complex simplate" do 
+    simplate = Simplate.load("test/fake-www/complex.spt")
+
+    assert Simplate.render(simplate) == "foodbar"
+  end
+
   test "parses specline" do
     assert Simplate.parse_specline("media/type via EEx") == {"EEx", "media/type"}
   end

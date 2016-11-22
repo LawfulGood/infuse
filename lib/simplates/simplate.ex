@@ -5,7 +5,7 @@ defmodule Simplate do
   @specline_regex ~r/(?:\s+|^)via\s+/
   @renderer_regex ~r/via\s+(\w+)/
 
-  defstruct file: nil, pages: [], once_bindings: nil  
+  defstruct file: nil, once: nil, every: nil, templates: {}, once_bindings: nil  
   
   @doc """
   Opens a simplate, executes the first page and quotes the second page for later
@@ -14,21 +14,25 @@ defmodule Simplate do
     Logger.info("Simplate: Loading " <> file)
     {:ok, body} = File.read(file)
 
-    pages = parse_pages(body)
-    {_, once_bindings} = Code.eval_string(hd(pages).content)
+    [once, every, templates] = parse_pages(body)
+    {_, once_bindings} = Code.eval_string(once.content)
 
-    %Simplate{file: file, pages: pages, once_bindings: once_bindings}
+    %Simplate{
+      file: file, 
+      once: once,
+      every: every,
+      templates: templates, 
+      once_bindings: once_bindings
+    }
   end
 
   @doc """
   Render a simplate, returning the output, will eventually be moved.
   """
   def render(simplate) do
-    [once, every, template] = simplate.pages
-    {_, once_bindings} = Code.eval_string(once.content)
-    {_, bindings} = Code.eval_string(every.content, once_bindings)
+    {_, bindings} = Code.eval_string(simplate.every.content, simplate.once_bindings)
 
-    EEx.eval_string(template.content, bindings)
+    EEx.eval_string(simplate.templates.content, bindings)
   end
 
   @doc """
