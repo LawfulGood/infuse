@@ -12,4 +12,10 @@ defmodule Infuse.Simplates.Registry do
         Agent.update(registry, &Map.put(&1, key, value))
     end
 
+    def autoload(registry, dir) do
+        files = DirWalker.stream(dir)
+
+        Enum.map(files, fn(v) -> Infuse.Simplates.Registry.put(registry, v, Simplate.load(v)) end)
+    end
+
 end

@@ -32,6 +32,7 @@ defmodule Infuse.Mixfile do
   defp deps do
     [{:cowboy, "~> 1.0.0"},
      {:plug, "~> 1.0"},
+     {:dir_walker, "~> 0.0.6"},
      {:ex_doc, "~> 0.14", only: :dev}]
   end
 

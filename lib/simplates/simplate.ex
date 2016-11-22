@@ -1,4 +1,5 @@
 defmodule Simplate do
+  require Logger
 
   @page_regex ~r/^\:page(?P<header>.*?)(\n|$)/m
   @specline_regex ~r/(?:\s+|^)via\s+/
@@ -6,7 +7,11 @@ defmodule Simplate do
 
   defstruct file: nil, pages: [], once_bindings: nil  
   
+  @doc """
+  Opens a simplate, executes the first page and quotes the second page for later
+  """
   def load(file) do
+    Logger.info("Simplate: Loading " <> file)
     {:ok, body} = File.read(file)
 
     pages = parse_pages(body)
@@ -15,6 +20,9 @@ defmodule Simplate do
     %Simplate{file: file, pages: pages, once_bindings: once_bindings}
   end
 
+  @doc """
+  Render a simplate, returning the output, will eventually be moved.
+  """
   def render(simplate) do
     [once, every, template] = simplate.pages
     {_, once_bindings} = Code.eval_string(once.content)
