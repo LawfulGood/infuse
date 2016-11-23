@@ -1,8 +1,8 @@
 defmodule Simplate do
   require Logger
 
-  #@page_regex ~r/^\:page(?P<header>.*?)(\n|$)/m
-  @page_regex ~r/():page()/
+  @page_regex ~r/^\:page(?P<header>.*?)(\n|$)/m
+  @page_split_regex ~r/():page()/
   @specline_regex ~r/(?:\s+|^)via\s+/
   @renderer_regex ~r/via\s+(\w+)/
 
@@ -22,14 +22,16 @@ defmodule Simplate do
   Takes contents, executes the first page and quotes the second page for later
   """
   def load(contents, file \\ nil) do
-    {[once, every], templates} = parse_pages(contents) |> organize_pages()
+    {[once, every], templates} = parse_pages(contents) |> clean_pages() |> organize_pages()
     {_, once_bindings} = Code.eval_string(once.content)
+
+    # Race condition
 
     %Simplate{
       file: file, 
       once: once,
       every: every,
-      templates: hd(templates), 
+      templates: recognize_templates(templates), 
       once_bindings: once_bindings
     }
   end
@@ -53,15 +55,14 @@ defmodule Simplate do
   If there's one page, it's a template.
   If there's more than one page, the first page is always code and the last is always a template.
   If there's more than two pages, the second page is code *unless it has a specline*, which makes it a template
-
-  Returns a tuple `{[once, every], templates}`
   """
-  def parse_pages(raw) do
-    pages = [Enum.reduce(Regex.split(@page_regex, raw, on: [1]), %{}, fn p, acc ->
-      {content_type, page} = parse_page(p) 
-      Map.put(acc, content_type, page) 
-    end)]
-    #[pages] = Regex.split(@page_regex, raw, on: [1]) |> Enum.map(fn(p) -> parse_page(p) end)
+  def parse_pages(raw) do 
+    #[pages] = Regex.split(@page_split_regex, raw, on: [1]) |> Enum.map(fn(p) -> parse_page(p) end)
+
+    split_pages(raw) |> fill_blank_pages
+  end
+
+  defp fill_blank_pages(pages) do
     blank = [ %Page{} ] 
 
     case length(pages) do
@@ -71,19 +72,50 @@ defmodule Simplate do
     end
   end
 
-  defp parse_page(raw_page) do
-    head = hd(String.split(raw_page, "\n"))
-
-    {renderer, content_type} = parse_specline(head)
-
-    {content_type, %Page{content: raw_page, renderer: renderer, content_type: content_type}}
+  defp split_pages(raw) do
+    Regex.split(@page_split_regex, raw, on: [1]) |> Enum.map(fn(p) -> %Page{content: p} end)
   end
 
+  defp recognize_templates(pages) do
+    [Enum.reduce(pages, %{}, fn p, acc ->      
+      {content_type, page} = parse_template(p)
+      Map.put(acc, content_type, page) 
+    end)]
+  end
+
+  #defp split_pages(raw) do
+  #  [Enum.reduce(Regex.split(@page_split_regex, raw, on: [1]), %{}, fn p, acc ->      
+  #    {content_type, page} = parse_page(p) 
+  #    IO.inspect(content_type)
+  #    Map.put(acc, content_type, page) 
+  #  end)]
+  #end]
+
+  defp parse_template(page) do
+    split = String.split(page.content, "\n")
+    {renderer, content_type} = parse_specline(hd(split))
+
+    {content_type, %Page{content: split, renderer: renderer, content_type: content_type}}
+  end
+
+  @doc """
+  Returns a tuple `{[once, every], templates}`
+  """
   defp organize_pages(pages) do
     code = Enum.take(pages, 2)
     templates = tl(tl(pages))
 
     {code, templates}
+  end
+
+  @doc """
+  Removes any `:page` from the pages  
+  """
+  defp clean_pages(pages) do
+    Enum.map(pages, fn(page) ->
+      Map.put(page, "content", [tl(Regex.split(@page_regex, page.content))])
+      page
+    end)
   end
 
   @doc """
