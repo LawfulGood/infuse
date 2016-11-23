@@ -15,7 +15,7 @@ defmodule Infuse.Simplates.Registry do
     def autoload(registry, dir) do
         files = DirWalker.stream(dir)
 
-        Enum.map(files, fn(v) -> Infuse.Simplates.Registry.put(registry, v, Simplate.load(v)) end)
+        Enum.map(files, fn(v) -> Infuse.Simplates.Registry.put(registry, v, Simplate.load_file(v)) end)
     end
 
 end

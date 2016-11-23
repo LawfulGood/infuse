@@ -3,19 +3,19 @@ defmodule SimplatesTest do
   doctest Infuse
 
   test "static simplate" do 
-    simplate = Simplate.load("test/fake-www/static.spt")
+    simplate = Simplate.load_file("test/fake-www/static.spt")
 
     assert Simplate.render(simplate) == "Hello world!"
   end
 
   test "complex simplate" do 
-    simplate = Simplate.load("test/fake-www/complex.spt")
+    simplate = Simplate.load_file("test/fake-www/complex.spt")
 
     assert Simplate.render(simplate) == "foodbar"
   end
 
   test "multipart simplate" do
-    simplate = Simplate.load("test/fake-www/multipage.spt")
+    simplate = Simplate.load_file("test/fake-www/multipage.spt")
 
     assert Simplate.render(simplate, "text/plain") == "Hello world!"
 
