@@ -33,4 +33,20 @@ defmodule Simplates.PageTest do
     assert Simplate.render(simplate) == "Hello, world! I have ALL code!"
   end
 
+
+  test "three four does nothing" do
+    simplate = Simplate.load("
+      some_global_var = 3
+      :page
+      some_code = 2
+      :page text/plain
+      Hello, world! I have ALL plain code!
+      :page application/json
+      Hello world I have all JSON code!")
+
+    assert String.trim(simplate.once.content) == "some_global_var = 3"
+    assert String.trim(simplate.every.content) == "some_code = 2"
+    assert Simplate.render(simplate,"application/json") == "Hello world I have all JSON code!"
+  end
+
 end
