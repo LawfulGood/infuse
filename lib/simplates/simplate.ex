@@ -1,12 +1,7 @@
 defmodule Simplate do
   require Logger
 
-  @page_regex ~r/^\:page(?P<header>.*?)(\n|$)/m
   @page_split_regex ~r/():page()/
-  @specline_regex ~r/(?:\s+|^)via\s+/
-  @renderer_regex ~r/via\s+(\w+)/
-  @specline_match_regex ~r/^\:page\s.*(\n|$)/
-  @specline_actual_regex ~r/(?P<content_type>.*?)\s?via\s?(?P<renderer>.*)/
 
   defstruct file: nil, once: nil, every: nil, templates: {}, once_bindings: nil  
   
@@ -126,13 +121,6 @@ defmodule Simplate do
       Regex.match?(@specline_renderer_regex, line) -> parse_renderer_specline(line) 
       true -> parse_empty_specline()
     end
-    #case Regex.match?(@specline_match_regex, line) do
-    #  true -> 
-    #    %{"header" => specline } = Regex.named_captures(@page_regex, line)
-    #    IO.inspect specline
-    #    Regex.split(@specline_regex, specline) |> do_parse_specline
-    #  false -> do_parse_specline
-    #end
   end
 
   defp parse_full_specline(line) do
@@ -151,25 +139,6 @@ defmodule Simplate do
   end
   
   defp parse_empty_specline do
-    {:empty, Application.get_env(:infuse, :default_renderer), Application.get_env(:infuse, :default_content_type)}
-  end
-
-  defp do_parse_specline([content_type, renderer]) do
-    case content_type do
-       "" -> do_parse_specline([renderer])
-        _ -> {:ok, String.trim(renderer), String.trim(content_type)} 
-    end
-  end
-
-  defp do_parse_specline([strand]) do
-    strand = String.trim(strand)
-    case Regex.match?(@renderer_regex, strand) do
-      true -> {:ok, strand, Application.get_env(:infuse, :default_content_type)}
-      false -> {:ok, Application.get_env(:infuse, :default_renderer), strand}
-    end
-  end
-
-  defp do_parse_specline do
     {:empty, Application.get_env(:infuse, :default_renderer), Application.get_env(:infuse, :default_content_type)}
   end
 
