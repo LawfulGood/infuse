@@ -23,15 +23,15 @@ defmodule SimplatesTest do
   end
 
   test "parses specline" do
-    assert Simplate.parse_specline("media/type via EEx") == {"EEx", "media/type"}
+    assert Simplate.parse_specline("media/type via EEx") == {:ok, "EEx", "media/type"}
   end
 
   test "parses specline without renderer" do
-    assert Simplate.parse_specline("media/type") == {"EEx", "media/type"}
+    assert Simplate.parse_specline("media/type") == {:ok, "EEx", "media/type"}
   end
 
   test "parses specline without content type" do
-    assert Simplate.parse_specline("via EEx") == {"EEx", "text/plain"}
+    assert Simplate.parse_specline("via EEx") == {:ok, "EEx", "text/plain"}
   end
 
   #assert String.contains?(Simplates.parse(file), "<h1>Html!! test</h1>") == true
