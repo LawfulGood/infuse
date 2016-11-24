@@ -1,0 +1,11 @@
+once_var = "Hello"
+
+:page
+
+every_var = " world!"
+
+:page text/plain
+<%= once_var <> every_var %>
+
+:page application/json
+"<%= once_var <> every_var %>"
