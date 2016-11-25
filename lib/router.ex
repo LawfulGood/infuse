@@ -5,7 +5,7 @@ defmodule Infuse.Router do
   plug :dispatch
 
   match "/*glob" do
-    simplate = Simplate.load_file("www/#{glob}.spt")
+    simplate = Infuse.Simplates.Registry.get("www/#{glob}.spt")
     body = Simplate.render(simplate)
 
     send_resp(conn, 200, body)

@@ -11,7 +11,7 @@ defmodule SimplatesTest do
   test "complex simplate" do 
     simplate = Simplate.load_file("test/fake-www/complex.spt")
 
-    assert Simplate.render(simplate) == "foodbar"
+    assert Simplate.render(simplate, "text/plain") == "foodbar"
   end
 
   test "multipart simplate" do
@@ -31,7 +31,7 @@ defmodule SimplatesTest do
   end
 
   test "parses specline without content type" do
-    assert Simplate.parse_specline("via EEx") == {:ok, "EEx", "text/plain"}
+    assert Simplate.parse_specline("via EEx") == {:ok, "EEx", "text/html"}
   end
 
   #assert String.contains?(Simplates.parse(file), "<h1>Html!! test</h1>") == true

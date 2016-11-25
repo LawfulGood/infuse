@@ -22,7 +22,8 @@ use Mix.Config
 #
 
 config :infuse,
-    default_content_type: "text/plain",
+    web_root: "example-www",
+    default_content_type: "text/html",
     default_renderer: "EEx"
 
 # It is also possible to import configuration files, relative to this

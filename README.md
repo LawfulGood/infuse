@@ -6,7 +6,19 @@ Simple web framework designed to get you up and running.
 
 ## Simplates
 
-Coming soon
+A basic simplate
+```
+require Logger
+
+:page
+
+Logger.info("Page loaded")
+rand_num = :rand.uniform(10)
+
+:page
+
+My favorite random number is <%= rand_num %>
+```
 
 ## Installation
 
