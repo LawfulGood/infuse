@@ -33,7 +33,7 @@ defmodule Simplate do
     }
   end
 
-  @doc """
+@doc """
   Render a simplate, returning the output, will eventually be moved.
   """
   def render(simplate) do
@@ -76,8 +76,9 @@ defmodule Simplate do
   end
 
   defp do_page(raw) do
+    raw = String.replace(raw, ":page", "")
     split = String.split(raw, "\n")
-    first_line = String.trim(String.replace(hd(split), ":page", ""))
+    first_line = String.trim(hd(split))
     {status, renderer, content_type} = parse_specline(first_line)
 
     page_content = 
