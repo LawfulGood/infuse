@@ -1,6 +1,8 @@
 defmodule Infuse.Supervisor do
   use Supervisor
 
+  require Logger
+
   def start_link do
     Supervisor.start_link(__MODULE__, :ok)
   end
@@ -9,6 +11,8 @@ defmodule Infuse.Supervisor do
     children = [
       Plug.Adapters.Cowboy.child_spec(:http, Infuse.Router, [], [port: 8101])
     ]
+
+    Logger.info("Started Infuse Server on 8101")
 
     supervise(children, strategy: :one_for_one)
   end

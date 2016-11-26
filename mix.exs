@@ -9,6 +9,8 @@ defmodule Infuse.Mixfile do
      package: package(),
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
+     test_coverage: [tool: ExCoveralls],
+     preferred_cli_env: ["coveralls": :test, "coveralls.detail": :test, "coveralls.post": :test, "coveralls.html": :test],
      deps: deps()]
   end
 
@@ -33,7 +35,8 @@ defmodule Infuse.Mixfile do
     [{:cowboy, "~> 1.0.0"},
      {:plug, "~> 1.0"},
      {:dir_walker, "~> 0.0.6"},
-     {:ex_doc, "~> 0.14", only: :dev}]
+     {:ex_doc, "~> 0.14", only: :dev},
+     {:excoveralls, "~> 0.5", only: :test}]
   end
 
   defp description do

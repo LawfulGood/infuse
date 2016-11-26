@@ -1,5 +1,8 @@
 defmodule Infuse.Router do
   use Plug.Router
+  use Plug.Debugger 
+  use Plug.ErrorHandler
+
 
   plug :match 
   plug :dispatch
