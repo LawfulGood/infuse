@@ -84,8 +84,4 @@ defmodule Infuse.Simplates.Registry do
   def handle_call({ :get, key }, _from, state) do
     { :reply, state[key], state }
   end
-
-  def handle_call({ :keys }, _from, state) do
-    { :reply, Map.keys(state), state }
-  end
 end
