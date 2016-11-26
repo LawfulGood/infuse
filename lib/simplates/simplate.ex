@@ -45,7 +45,8 @@ defmodule Simplate do
 
     template = simplate.templates["#{content_type}"]
 
-    EEx.eval_string(template.content, bindings)
+    ren = Module.concat(["Infuse","Simplates","Renderers", template.renderer <> "Renderer"])
+    ren.render(template.content, bindings)
   end
 
   @doc """
