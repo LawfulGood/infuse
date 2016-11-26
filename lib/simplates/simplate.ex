@@ -1,7 +1,7 @@
 defmodule Simplate do
   require Logger
 
-  @page_split_regex ~r/():page()/
+  @page_split_regex ~r/()\[---+\]()/
 
   defstruct file: nil, once: nil, every: nil, templates: {}, once_bindings: nil  
   
@@ -77,7 +77,7 @@ defmodule Simplate do
   end
 
   defp do_page(raw) do
-    raw = String.replace(raw, ":page", "")
+    raw = Regex.replace(@page_split_regex, raw, "")
     split = String.split(raw, "\n")
     first_line = String.trim(hd(split))
     {status, renderer, content_type} = parse_specline(first_line)
@@ -116,7 +116,7 @@ defmodule Simplate do
     `:empty` => No specline at all, don't trim line
   """
   def parse_specline(line) do 
-    line = String.replace(line, ":page ", "")
+    line = Regex.replace(@page_split_regex, line, "")
     cond do
       Regex.match?(@specline_full_regex, line) -> parse_full_specline(line)
       Regex.match?(@specline_content_regex, line) -> parse_content_specline(line)
