@@ -2,27 +2,14 @@
 
 [![Build Status](https://travis-ci.org/clone1018/infuse.svg?branch=master)](https://travis-ci.org/clone1018/infuse)
 
-Simple web framework designed to get you up and running.
+Simple filesystem web framework using [Simplates](https://github.com/clone1018/infuse/wiki/Simplates). Inspired by [Aspen](https://github.com/AspenWeb/aspen.py). Using [Plug](https://github.com/elixir-lang/plug)
 
-## Simplates
+It is currently **not ready for use in development or production**.
 
-A basic simplate
-```
-require Logger
 
-:page
+## Possible Installation
 
-Logger.info("Page loaded")
-rand_num = :rand.uniform(10)
-
-:page
-
-My favorite random number is <%= rand_num %>
-```
-
-## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
+You can use [Hex](https://hex.pm/packages/infuse), to install the package:
 
   1. Add `infuse` to your list of dependencies in `mix.exs`:
 
@@ -39,6 +26,8 @@ If [available in Hex](https://hex.pm/docs/publish), the package can be installed
       [applications: [:infuse]]
     end
     ```
+
+  3. Figure out what's next, because I have no idea!
 
 ## Credits & License
 [LICENSE](LICENSE.md)
