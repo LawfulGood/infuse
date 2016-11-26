@@ -1,6 +1,6 @@
 # Infuse
 
-[![Build Status](https://travis-ci.org/clone1018/infuse.svg?branch=master)](https://travis-ci.org/clone1018/infuse)
+[![Build Status](https://travis-ci.org/clone1018/infuse.svg?branch=master)](https://travis-ci.org/clone1018/infuse) [![Coverage Status](https://coveralls.io/repos/github/clone1018/infuse/badge.svg?branch=master)](https://coveralls.io/github/clone1018/infuse?branch=master)
 
 Simple filesystem web framework using [Simplates](https://github.com/clone1018/infuse/wiki/Simplates). Inspired by [Aspen](https://github.com/AspenWeb/aspen.py). Using [Plug](https://github.com/elixir-lang/plug)
 
