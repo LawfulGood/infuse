@@ -18,7 +18,12 @@ defmodule Simplate do
   """
   def load(contents, file \\ nil) do
     {[once, every], templates} = Infuse.Simplates.Pagination.parse_pages(contents) |> Infuse.Simplates.Pagination.organize_pages()
-    {_, once_bindings} = Code.eval_string(once.content)
+
+    # Gotta redo this for now, should be moved
+    once = %{once | renderer: Infuse.Simplates.Renderers.CodeRenderer, compiled: Infuse.Simplates.Renderers.CodeRenderer.compile(once.content)}
+    every = %{every | renderer: Infuse.Simplates.Renderers.CodeRenderer, compiled: Infuse.Simplates.Renderers.CodeRenderer.compile(every.content)}
+
+    {_, once_bindings} = once.renderer.render(once.compiled)
 
     # Race condition
 
@@ -39,7 +44,7 @@ defmodule Simplate do
   end
 
   def render(simplate, content_type) do
-    {_, bindings} = Code.eval_string(simplate.every.content, simplate.once_bindings)
+    {_, bindings} = Infuse.Simplates.Renderers.CodeRenderer.render(simplate.every.compiled, simplate.once_bindings)
 
     template = simplate.templates["#{content_type}"]
 
