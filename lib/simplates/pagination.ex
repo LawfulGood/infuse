@@ -15,7 +15,7 @@ defmodule Infuse.Simplates.Pagination do
 
   defp fill_blank_pages(pages) do
     blank = [ %Page{} ] 
-
+    
     case length(pages) do
       1 -> blank ++ blank ++ pages
       2 -> blank ++ pages

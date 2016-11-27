@@ -2,8 +2,10 @@ defmodule Infuse do
   use Application
 
   def start(_type, _args) do
-    Infuse.Simplates.Registry.start_link
-    autoload(Application.get_env(:infuse, :web_root))
+    if Mix.env == :dev do
+      Infuse.Simplates.Registry.start_link
+      autoload(Application.get_env(:infuse, :web_root))
+    end
 
     Infuse.Supervisor.start_link
   end

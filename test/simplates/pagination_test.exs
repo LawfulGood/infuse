@@ -2,29 +2,53 @@ defmodule Infuse.Simplates.PaginationTest do
   use ExUnit.Case
   doctest Infuse
 
-  test "static simplate" do 
-    simplate = Simplate.load_file("test/fake-www/static.spt")
 
-    assert Simplate.render(simplate) == "Hello world!"
+  test "single page adds two code pages" do 
+    simplate = Simplate.load("Hello, world! I have no code!")
+
+    assert simplate.once.content == ""
+    assert simplate.every.content == ""
   end
 
-  test "complex simplate" do 
-    simplate = Simplate.load_file("test/fake-www/complex.spt")
+  test "two page adds one code page" do
+    simplate = Simplate.load("
+      some_code = 2
+      [----]
+      Hello, world! I have SOME code!")
 
-    assert Simplate.render(simplate, "text/plain") == "foodbar"
+    assert simplate.once.content == ""
+    assert String.trim(simplate.every.content) == "some_code = 2"
   end
 
-  test "multipart simplate" do
-    simplate = Simplate.load_file("test/fake-www/multipage.spt")
 
-    assert Simplate.render(simplate, "text/plain") == "Hello world!"
+  test "three page does nothing" do
+    simplate = Simplate.load("
+      some_global_var = 3
+      [----]
+      some_code = 2
+      [----]
+      Hello, world! I have ALL code!")
 
-    assert Simplate.render(simplate, "application/json") == ~s("Hello world!")
+    assert String.trim(simplate.once.content) == "some_global_var = 3"
+    assert String.trim(simplate.every.content) == "some_code = 2"
+    assert Simplate.render(simplate) == "\n      Hello, world! I have ALL code!" # Why does this happen
   end
 
-  #assert String.contains?(Simplates.parse(file), "<h1>Html!! test</h1>") == true
 
-  test "the truth" do
-    assert 1 + 1 == 2
+  test "three four does nothing" do
+    simplate = Simplate.load("
+      some_global_var = 3
+      [----]
+      some_code = 2
+      [----] text/plain
+      Hello, world! I have ALL plain code!
+      [----] application/json
+      Hello world I have all JSON code!")
+
+    assert String.trim(simplate.once.content) == "some_global_var = 3"
+    assert String.trim(simplate.every.content) == "some_code = 2"
+    assert Simplate.render(simplate,"application/json") == "Hello world I have all JSON code!"
   end
+
+
 end
