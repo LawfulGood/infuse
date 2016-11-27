@@ -43,8 +43,7 @@ defmodule Simplate do
 
     template = simplate.templates["#{content_type}"]
 
-    ren = Module.concat(["Infuse","Simplates","Renderers", template.renderer <> "Renderer"])
-    ren.render(template.content, bindings)
+    template.renderer.render(template.compiled, bindings)
   end
 
 end
