@@ -1,4 +1,4 @@
-defmodule SimplatesTest do
+defmodule Infuse.Simplates.SimplateTest do
   use ExUnit.Case
   doctest Infuse
 
@@ -20,18 +20,6 @@ defmodule SimplatesTest do
     assert Simplate.render(simplate, "text/plain") == "Hello world!"
 
     assert Simplate.render(simplate, "application/json") == ~s("Hello world!")
-  end
-
-  test "parses specline" do
-    assert Simplate.parse_specline("media/type via EEx") == {:ok, "EEx", "media/type"}
-  end
-
-  test "parses specline without renderer" do
-    assert Simplate.parse_specline("media/type") == {:ok, "EEx", "media/type"}
-  end
-
-  test "parses specline without content type" do
-    assert Simplate.parse_specline("via EEx") == {:ok, "EEx", "text/html"}
   end
 
   #assert String.contains?(Simplates.parse(file), "<h1>Html!! test</h1>") == true

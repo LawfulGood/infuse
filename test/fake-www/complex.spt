@@ -1,8 +1,8 @@
 once_var = "food"
 
-:page
+[----]
 
 every_var = "bar"
 
-:page text/plain
+[----] text/plain
 <%= once_var <> every_var %>

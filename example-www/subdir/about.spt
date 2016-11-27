@@ -1,6 +1,6 @@
 
-:page 
+[----]
 
-:page application/json
+[----] application/json
 
 {"Hello world"}
