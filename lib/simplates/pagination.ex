@@ -38,10 +38,14 @@ defmodule Infuse.Simplates.Pagination do
     page_content = 
       case status do
         :ok -> tl(split) |> Enum.join(" ") |> String.trim()
-        :empty -> raw  
+        :empty -> raw |> String.trim()
       end
 
-    %Page{content: page_content, renderer: renderer, content_type: content_type}
+    %Page{
+      content: page_content, 
+      compiled: renderer.compile(page_content),
+      renderer: renderer, 
+      content_type: content_type}
   end
 
   @doc """

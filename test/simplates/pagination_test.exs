@@ -31,7 +31,7 @@ defmodule Infuse.Simplates.PaginationTest do
 
     assert String.trim(simplate.once.content) == "some_global_var = 3"
     assert String.trim(simplate.every.content) == "some_code = 2"
-    assert Simplate.render(simplate) == "\n      Hello, world! I have ALL code!" # Why does this happen
+    assert Simplate.render(simplate) == "Hello, world! I have ALL code!" # Why does this happen
   end
 
 
