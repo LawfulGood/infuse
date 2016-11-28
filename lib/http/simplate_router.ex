@@ -1,13 +1,14 @@
-defmodule Infuse.HTTP.Router do
-  use Plug.Router
-  use Plug.Debugger 
-  use Plug.ErrorHandler
+defmodule Infuse.HTTP.SimplateRouter do
+  
+  def init(opts) do
+    opts
+  end
 
-  plug :match 
-  plug :dispatch
-  plug Plug.Logger, log: :debug
-
-  forward "/", to: Infuse.HTTP.Dispatch
+  def call(conn, opts) do
+    simplate = Infuse.Simplates.Registry.get(conn.request_path)
+    body = Simplate.render(simplate)
+    Plug.Conn.send_resp(conn, 200, body)
+  end
 
 #  match "/*glob" do
 #     raise "oops"
