@@ -15,10 +15,11 @@ defmodule Infuse do
   def autoload(dir) do
     DirWalker.stream(dir) |> Enum.map(fn(v) -> 
       name = String.replace(v, Application.get_env(:infuse, :web_root), "") # Remove webroot from path
-      Infuse.Simplates.Registry.put(name, Simplate.load_file(v)) 
+      simplate = Simplate.load_file(v, name)
+      Infuse.Simplates.Registry.put(name, simplate) 
 
-      Infuse.HTTP.Dispatch.register("localhost", name, Infuse.HTTP.SimplateRouter, :handle_simplate)
-      Logger.info("DISPATCH: Registering #{name}")
+      Infuse.HTTP.Dispatch.register("localhost", simplate.route, Infuse.HTTP.SimplateRouter, :handle_simplate)
+      Logger.info("DISPATCH: Registering #{simplate.route}")
     end)
   end
 
