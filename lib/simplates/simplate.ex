@@ -31,7 +31,7 @@ defmodule Simplate do
     }
   end
 
-@doc """
+  @doc """
   Render a simplate, returning the output, will eventually be moved.
   """
   def render(simplate) do

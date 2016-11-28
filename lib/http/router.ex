@@ -1,14 +1,15 @@
-defmodule Infuse.Router do
+defmodule Infuse.HTTP.Router do
   use Plug.Router
   use Plug.Debugger 
   use Plug.ErrorHandler
-
 
   plug :match 
   plug :dispatch
   plug Plug.Logger, log: :debug
 
   match "/*glob" do
+     raise "oops"
+
     glob = case glob do
       [] -> "index"
       _ -> glob
