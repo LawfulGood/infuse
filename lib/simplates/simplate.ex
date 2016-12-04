@@ -6,7 +6,7 @@ defmodule Simplate do
   @doc """
   Opens a simplate, sends to load
   """
-  def load_file(file, partial_path) do
+  def load_file(file, partial_path \\ nil) do
     Logger.info("Simplate: Loading " <> file)
     {:ok, body} = File.read(file)
 
