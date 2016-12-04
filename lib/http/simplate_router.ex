@@ -4,8 +4,8 @@ defmodule Infuse.HTTP.SimplateRouter do
     opts
   end
 
-  def call(conn, opts) do
-    simplate = Infuse.Simplates.Registry.get(conn.request_path)
+  def call(conn, opts) do    
+    simplate = Infuse.Simplates.Registry.get(opts.simplate.file)
     body = Simplate.render(simplate)
     Plug.Conn.send_resp(conn, 200, body)
   end
