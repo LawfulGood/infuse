@@ -20,10 +20,14 @@ defmodule Infuse.Simplates.Specline do
     end
   end
 
+  def long_renderer(short) do
+    Module.concat(["Infuse","Simplates","Renderers", short <> "Renderer"])
+  end
+
   defp parse_full_specline(line) do
     parsed = Regex.named_captures(@specline_full_regex, line)
 
-    {:ok, Map.get(parsed, "renderer"), Map.get(parsed, "content_type")}
+    {:ok, long_renderer(Map.get(parsed, "renderer")), Map.get(parsed, "content_type")}
   end
 
   defp parse_content_specline(line) do
@@ -32,7 +36,7 @@ defmodule Infuse.Simplates.Specline do
 
   defp parse_renderer_specline(line) do
     parsed = Regex.named_captures(@specline_renderer_regex, line)
-    {:ok, Map.get(parsed, "renderer"), Application.get_env(:infuse, :default_content_type)}
+    {:ok, long_renderer(Map.get(parsed, "renderer")), Application.get_env(:infuse, :default_content_type)}
   end
   
   defp parse_empty_specline do
