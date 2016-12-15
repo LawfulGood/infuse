@@ -1,16 +1,16 @@
 defmodule Simplate do
   require Logger
 
-  defstruct file: nil, once: nil, every: nil, templates: {}, once_bindings: nil  
+  defstruct file: nil, routes: nil, once: nil, every: nil, templates: {}, once_bindings: nil  
   
   @doc """
   Opens a simplate, sends to load
   """
-  def load_file(file) do
+  def load_file(file, partial_path \\ nil) do
     Logger.info("Simplate: Loading " <> file)
     {:ok, body} = File.read(file)
 
-    load(body, file)
+    load(body, partial_path)
   end
 
   @doc """
@@ -25,10 +25,13 @@ defmodule Simplate do
 
     {_, once_bindings} = once.renderer.render(once.compiled)
 
+    routes = determine_routes(file)
+
     # Race condition
 
     %Simplate{
-      file: file, 
+      file: file,
+      routes: routes, 
       once: once,
       every: every,
       templates: Infuse.Simplates.Pagination.organize_templates(templates), 
@@ -36,7 +39,7 @@ defmodule Simplate do
     }
   end
 
-@doc """
+  @doc """
   Render a simplate, returning the output, will eventually be moved.
   """
   def render(simplate) do
@@ -49,6 +52,14 @@ defmodule Simplate do
     template = simplate.templates["#{content_type}"]
 
     template.renderer.render(template.compiled, bindings)
+  end
+
+  def determine_routes(nil) do
+    nil
+  end
+
+  def determine_routes(path) do
+    [path |> String.replace(".spt", "") |> String.replace("index", "")]
   end
 
 end

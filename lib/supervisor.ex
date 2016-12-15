@@ -9,7 +9,7 @@ defmodule Infuse.Supervisor do
 
   def init(:ok) do
     children = [
-      Plug.Adapters.Cowboy.child_spec(:http, Infuse.Router, [], [port: 8101])
+      Plug.Adapters.Cowboy.child_spec(:http, Infuse.HTTP.Router, [], [port: 8101])
     ]
 
     Logger.info("Started Infuse Server on 8101")

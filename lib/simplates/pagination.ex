@@ -41,6 +41,7 @@ defmodule Infuse.Simplates.Pagination do
         :empty -> raw |> String.trim()
       end
 
+
     %Page{
       content: page_content, 
       compiled: renderer.compile(page_content),
