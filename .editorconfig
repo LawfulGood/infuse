@@ -1,9 +1,6 @@
 # EditorConfig is awesome: http://EditorConfig.org
 root = true
 
-[*]
-end_of_line = lf
-
 [*.{exs,ex}]
 chatset = utf-8
 ident_type = space
