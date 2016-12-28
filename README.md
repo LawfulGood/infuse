@@ -29,6 +29,18 @@ You can use [Hex](https://hex.pm/packages/infuse), to install the package:
 
   3. Figure out what's next, because I have no idea!
 
+## Application Config
+```elixir
+config :infuse,
+    web_root: "example-www",
+    default_content_type: "text/html",
+    default_renderer: Infuse.Simplates.Renderers.EExRenderer
+
+config :infuse, Infuse.HTTP.RequestHandler,
+    default_indicies: ['index.html', 'index.json', 'index',
+                        'index.html.spt', 'index.json.spt', 'index.spt']
+```
+
 ## Credits & License
 [LICENSE](LICENSE.md)
 

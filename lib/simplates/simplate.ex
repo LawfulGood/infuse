@@ -43,7 +43,7 @@ defmodule Simplate do
   Render a simplate, returning the output, will eventually be moved.
   """
   def render(simplate) do
-    render(simplate, Application.get_env(:infuse, :default_content_type))
+    render(simplate, default_content_type())
   end
 
   def render(simplate, content_type) do
@@ -60,6 +60,20 @@ defmodule Simplate do
 
   def determine_routes(path) do
     [path |> String.replace(".spt", "") |> String.replace("index", "")]
+  end
+
+  @doc """
+  Returns a default content type set by config or app  
+  """
+  def default_content_type do
+    Application.get_env(:infuse, :default_content_type) || "text/html"
+  end
+
+  @doc """
+  Returns a default renderer set by config or app  
+  """
+  def default_renderer do
+    Application.get_env(:infuse, :default_renderer) || Infuse.Simplates.Renderers.EExRenderer
   end
 
 end

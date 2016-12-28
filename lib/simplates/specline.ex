@@ -31,16 +31,16 @@ defmodule Infuse.Simplates.Specline do
   end
 
   defp parse_content_specline(line) do
-    {:ok, Application.get_env(:infuse, :default_renderer), line}
+    {:ok, Simplate.default_renderer(), line}
   end
 
   defp parse_renderer_specline(line) do
     parsed = Regex.named_captures(@specline_renderer_regex, line)
-    {:ok, long_renderer(Map.get(parsed, "renderer")), Application.get_env(:infuse, :default_content_type)}
+    {:ok, long_renderer(Map.get(parsed, "renderer")), Simplate.default_content_type()}
   end
   
   defp parse_empty_specline do
-    {:empty, Application.get_env(:infuse, :default_renderer), Application.get_env(:infuse, :default_content_type)}
+    {:empty, Simplate.default_renderer(), Simplate.default_content_type()}
   end
 
 end

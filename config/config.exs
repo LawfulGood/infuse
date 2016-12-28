@@ -21,10 +21,6 @@ use Mix.Config
 #     config :logger, level: :info
 #
 
-config :infuse,
-    web_root: "example-www",
-    default_content_type: "text/html",
-    default_renderer: Infuse.Simplates.Renderers.EExRenderer
 
 config :infuse, Infuse.HTTP.RequestHandler,
     default_indicies: ['index.html', 'index.json', 'index',
