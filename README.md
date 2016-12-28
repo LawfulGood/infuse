@@ -1,8 +1,8 @@
 # Infuse
 
-[![Build Status](https://travis-ci.org/clone1018/infuse.svg?branch=master)](https://travis-ci.org/clone1018/infuse) [![Coverage Status](https://coveralls.io/repos/github/clone1018/infuse/badge.svg?branch=master)](https://coveralls.io/github/clone1018/infuse?branch=master)
+[![Build Status](https://travis-ci.org/LawfulGood/infuse.svg?branch=master)](https://travis-ci.org/LawfulGood/infuse) [![Coverage Status](https://coveralls.io/repos/github/LawfulGood/infuse/badge.svg?branch=master)](https://coveralls.io/github/LawfulGood/infuse?branch=master)
 
-Simple filesystem web framework using [Simplates](https://github.com/clone1018/infuse/wiki/Simplates). Inspired by [Aspen](https://github.com/AspenWeb/aspen.py). Using [Plug](https://github.com/elixir-lang/plug)
+Simple filesystem web framework using [Simplates](https://github.com/LawfulGood/infuse/wiki/Simplates). Inspired by [Aspen](https://github.com/AspenWeb/aspen.py). Using [Plug](https://github.com/elixir-lang/plug)
 
 It is currently **not ready for use in development or production**.
 
