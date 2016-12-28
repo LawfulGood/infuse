@@ -51,7 +51,7 @@ defmodule Infuse.Mixfile do
     files: ["lib", "www", "mix.exs", "README.md", "LICENSE.md"],
     maintainers: ["Luke Strickland"],
     licenses: ["MIT"],
-    links: %{"GitHub" => "https://github.com/clone1018/infuse",
+    links: %{"GitHub" => "https://github.com/LawfulGood/infuse",
       "Docs" => "http://clone1018.github.io/infuse/"}]
   end
 end
