@@ -41,7 +41,16 @@ config :infuse, Infuse.HTTP.RequestHandler,
                         'index.html.spt', 'index.json.spt', 'index.spt']
 ```
 
+## Docker for Development
+
+```
+docker build -t infuse .
+docker run -p 8101:8101 infuse
+```
+
+
 ## Credits & License
 [LICENSE](LICENSE.md)
 
 Entire inspiration and design is from [https://github.com/AspenWeb/aspen.py](https://github.com/AspenWeb/aspen.py) 
+

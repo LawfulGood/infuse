@@ -3,11 +3,9 @@ defmodule Infuse do
   require Logger
 
   def start(_type, _args) do
-    if Mix.env == :dev do
-      :ets.new(:simplate_routes, [:named_table, :bag, :public])
-      Infuse.Simplates.Registry.start_link
-      autoload(Infuse.web_root())
-    end
+    :ets.new(:simplate_routes, [:named_table, :bag, :public])
+    Infuse.Simplates.Registry.start_link
+    autoload(Infuse.web_root())
 
     Infuse.Supervisor.start_link
   end

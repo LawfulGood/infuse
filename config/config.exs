@@ -21,6 +21,8 @@ use Mix.Config
 #     config :logger, level: :info
 #
 
+config :infuse,
+    web_root: "example-www"
 
 config :infuse, Infuse.HTTP.RequestHandler,
     default_indicies: ['index.html', 'index.json', 'index',

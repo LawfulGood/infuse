@@ -12,7 +12,7 @@ defmodule Infuse.HTTP.Dispatch do
 
   def call(conn, _wat) do
     case :ets.match_object(:simplate_routes, {conn.host, conn.request_path, :_, :_}) do
-      [{host, path, plug, opts}] -> plug.call(conn, plug.init(opts))
+      [{_host, _path, plug, opts}] -> plug.call(conn, plug.init(opts))
       [] -> conn
     end
   end
