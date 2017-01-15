@@ -3,9 +3,9 @@ defmodule Infuse.HTTP.Router do
   use Plug.Debugger 
   use Plug.ErrorHandler
 
+  plug Plug.Logger, log: :debug
   plug :match 
   plug :dispatch
-  plug Plug.Logger, log: :debug
 
   forward "/", to: Infuse.HTTP.Dispatch
 
