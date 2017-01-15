@@ -22,7 +22,7 @@ use Mix.Config
 #
 
 config :infuse,
-    web_root: "example-www"
+    web_root: "docs"
 
 config :infuse, Infuse.HTTP.RequestHandler,
     default_indicies: ['index.html', 'index.json', 'index',
