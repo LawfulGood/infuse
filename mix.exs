@@ -3,7 +3,7 @@ defmodule Infuse.Mixfile do
 
   def project do
     [app: :infuse,
-     version: "0.1.3",
+     version: "0.1.4",
      elixir: "~> 1.3",
      description: description(),
      package: package(),
