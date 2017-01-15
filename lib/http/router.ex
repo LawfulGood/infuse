@@ -9,24 +9,8 @@ defmodule Infuse.HTTP.Router do
 
   forward "/", to: Infuse.HTTP.Dispatch
 
-#  match "/*glob" do
-#     raise "oops"
-#
-#    glob = case glob do
-#      [] -> "index"
-#      _ -> glob
-#    end
-#    
-#    simplate = Infuse.Simplates.Registry.get(glob <> ".spt")
-#    body = Simplate.render(simplate)
-#
-#    send_resp(conn, 200, body)
-#  end 
-
-#  def try_thing do
-#    get "/hello" do
-#      send_resp(conn, 200, "world")
-#    end
-#  end
+  def handle_notfound(conn) do
+    send_resp(conn, 404, "oops")
+  end
 
 end
