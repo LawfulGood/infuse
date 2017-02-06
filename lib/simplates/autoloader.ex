@@ -19,7 +19,7 @@ defmodule Infuse.Simplates.Autoloader do
        
       # Register the routes!
       Enum.map(simplate.routes, fn(route) -> 
-        Infuse.HTTP.Dispatch.register("localhost", route, Infuse.HTTP.SimplateRouter, %{:simplate => simplate})
+        Infuse.HTTP.SimplateRouter.register(route, Infuse.HTTP.SimplateDispatch, %{:simplate => simplate})
         Logger.info("Dispatch: Registering #{route}")
       end)
       

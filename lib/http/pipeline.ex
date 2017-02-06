@@ -1,13 +1,22 @@
-defmodule Infuse.HTTP.Router do
+defmodule Infuse.HTTP.Pipeline do
+  @moduledoc """
+  The main HTTP pipeline for serving requests. 
+
+  The firing order is:
+   * Simplate Routes
+   * Static Requests
+   * Not Found
+  """
+
   use Plug.Builder
 
   plug Plug.Logger, log: :debug
 
-   plug Plug.Static,
+  plug Plug.Static,
     at: "/",
     from: Infuse.config_web_root
 
-  plug Infuse.HTTP.SimplatePlug
+  plug Infuse.HTTP.SimplateRouter
 
   plug :not_found
 

@@ -58,7 +58,7 @@ defmodule Simplate do
     {:ok, simplate}
   end
 
-  def reload(simplate) do
+  def reload(_simplate) do
     
   end
 
