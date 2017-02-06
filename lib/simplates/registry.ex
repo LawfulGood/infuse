@@ -1,5 +1,6 @@
 defmodule Infuse.Simplates.Registry do
   use GenServer
+  require Logger
 
   @moduledoc """
   A simple GenServer to keep track of Simplates
@@ -13,6 +14,7 @@ defmodule Infuse.Simplates.Registry do
       :ok
   """
   def start_link do
+    Logger.info("Worker: Started Infuse.Simplates.Registry")
     GenServer.start(__MODULE__, [], name: :simplate_server)
   end
   

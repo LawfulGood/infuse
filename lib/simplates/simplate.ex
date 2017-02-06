@@ -1,22 +1,27 @@
 defmodule Simplate do
   require Logger
 
-  defstruct file: nil, routes: nil, once: nil, every: nil, templates: {}, once_bindings: nil  
+  defstruct fs_path: nil, web_path: nil, routes: nil, once: nil, every: nil, templates: {}, once_bindings: nil  
   
   @doc """
   Opens a simplate, sends to load
   """
   def load_file(file, partial_path \\ nil) do
-    Logger.info("Simplate: Loading " <> file)
+    file = Path.absname(file)
+    rel_file = rel_path(file)
+    Logger.info("Simplate: Loading #{file} as #{rel_file}")
     {:ok, body} = File.read(file)
 
-    load(body, partial_path)
+    simplate = load(body, file, partial_path)
+    Infuse.Simplates.Registry.put(rel_file, simplate)
+
+    {:ok, simplate}
   end
 
   @doc """
   Takes contents, executes the first page and quotes the second page for later
   """
-  def load(contents, file \\ nil) do
+  def load(contents, fs_path \\ nil, web_path \\ nil) do
     {[once, every], templates} = Infuse.Simplates.Pagination.parse_pages(contents) |> Infuse.Simplates.Pagination.organize_pages()
 
     # Gotta redo this for now, should be moved
@@ -25,18 +30,38 @@ defmodule Simplate do
 
     {_, once_bindings} = once.renderer.render(once.compiled)
 
-    routes = determine_routes(file)
+    routes = determine_routes(web_path)
 
     # Race condition
 
     %Simplate{
-      file: file,
+      fs_path: fs_path,
+      web_path: web_path,
       routes: routes, 
       once: once,
       every: every,
       templates: Infuse.Simplates.Pagination.organize_templates(templates), 
       once_bindings: once_bindings
     }
+  end
+
+  def find_by_fullpath(path) do
+    case String.replace(path, Infuse.config_web_root(), "") |> Infuse.Simplates.Registry.get() do
+      simplate = %Simplate{} -> 
+        {:ok, simplate}
+      nil ->
+        {:error, :enoent}
+    end
+  end
+
+  def get(simplate_path) do
+    simplate = Infuse.Simplates.Registry.get(simplate_path)
+    {:ok, simplate}
+  end
+
+  def reload(simplate) do
+    Logger.info("Simplate: Reloading " <> simplate.fs_path)
+    load_file(simplate.fs_path)
   end
 
   @doc """
@@ -74,6 +99,10 @@ defmodule Simplate do
   """
   def default_renderer do
     Application.get_env(:infuse, :default_renderer) || Infuse.Simplates.Renderers.EExRenderer
+  end
+
+  defp rel_path(full_path) do
+    String.replace(full_path, Infuse.config_web_root(), "")
   end
 
 end

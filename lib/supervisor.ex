@@ -8,11 +8,20 @@ defmodule Infuse.Supervisor do
   end
 
   def init(:ok) do
-    children = [
-      Plug.Adapters.Cowboy.child_spec(:http, Infuse.HTTP.Router, [], [port: 8101])
+    base_children = [
+      supervisor(Infuse.Simplates.Supervisor, [])
     ]
 
-    Logger.info("Started Infuse Server on 8101")
+    children =
+      case Infuse.config_start_server do
+        true -> 
+          Logger.info("Started Infuse Server on 8101")
+          base_children ++ [Plug.Adapters.Cowboy.child_spec(:http, Infuse.HTTP.Pipeline, [], [port: 8101])]
+        false ->
+          base_children
+      end
+
+    Logger.info("Supervisor: Started Infuse.Supervisor")
 
     supervise(children, strategy: :one_for_one)
   end
