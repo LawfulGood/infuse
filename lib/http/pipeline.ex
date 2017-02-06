@@ -12,11 +12,11 @@ defmodule Infuse.HTTP.Pipeline do
 
   plug Plug.Logger, log: :debug
 
+  plug Infuse.HTTP.SimplateRouter
+
   plug Plug.Static,
     at: "/",
     from: Infuse.config_web_root
-
-  plug Infuse.HTTP.SimplateRouter
 
   plug :not_found
 
