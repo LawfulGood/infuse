@@ -15,7 +15,7 @@ You can use [Hex](https://hex.pm/packages/infuse), to install the package:
 
     ```elixir
     def deps do
-      [{:infuse, "~> 0.1.0"}]
+      [{:infuse, "~> 0.2.0"}]
     end
     ```
 
