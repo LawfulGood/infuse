@@ -4,33 +4,39 @@ defmodule Infuse do
 
   def start(_type, _args) do
     :ets.new(:simplate_routes, [:named_table, :bag, :public])
-    Infuse.Simplates.Registry.start_link
-    autoload(Infuse.web_root())
 
-    Infuse.Supervisor.start_link
+    {:ok, pid} = Infuse.Supervisor.start_link
+    
+    if Infuse.config_start_observer() do
+      :observer.start()  
+    end
+    
+    {:ok, pid}
   end
 
-  def autoload(dir) do
-    DirWalker.stream(dir) |> Enum.map(fn(v) -> 
-      name = String.replace(v, Infuse.web_root(), "") # Remove webroot from path
-      simplate = Simplate.load_file(v, name)
-      Infuse.Simplates.Registry.put(name, simplate)
-       
-      # Register the routes!
-      Enum.map(simplate.routes, fn(route) -> 
-        Infuse.HTTP.Dispatch.register("localhost", route, Infuse.HTTP.SimplateRouter, %{:simplate => simplate})
-        Logger.info("DISPATCH: Registering #{route}")
-      end)
-
-      
-    end)
+  def stop(_state) do
+    :ok
   end
 
   @doc """
   Returns a usable webroot
   """
-  def web_root do
-    Application.get_env(:infuse, :web_root) || "www"
+  def config_web_root do
+    Path.absname(Application.get_env(:infuse, :web_root) || "www")
+  end
+
+  @doc """
+  Should the server autostart 
+  """
+  def config_start_server do
+    Application.get_env(:infuse, :start_server) || true
+  end
+
+  @doc """
+  Autostart observer for debugging
+  """
+  def config_start_observer do
+    Application.get_env(:infuse, :start_observer) || false
   end
 
 end

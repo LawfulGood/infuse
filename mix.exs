@@ -18,7 +18,7 @@ defmodule Infuse.Mixfile do
   #
   # Type "mix help compile.app" for more information
   def application do
-    [applications: [:logger, :cowboy, :plug],
+    [applications: [:logger, :cowboy, :plug, :fs],
      mod: {Infuse, []}]
   end
 
@@ -35,6 +35,7 @@ defmodule Infuse.Mixfile do
     [{:cowboy, "~> 1.0.0"},
      {:plug, "~> 1.0"},
      {:dir_walker, "~> 0.0.6"},
+     {:fs, github: "synrc/fs"},
      {:ex_doc, "~> 0.14", only: :dev},
      {:excoveralls, "~> 0.5", only: :test}]
   end

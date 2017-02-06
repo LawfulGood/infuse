@@ -11,7 +11,9 @@ defmodule Infuse.HTTP.SimplateRouter do
     simplate = Infuse.Simplates.Registry.get(opts.simplate.file)
     body = Simplate.render(simplate)
     
-    Plug.Conn.send_resp(conn, 200, body)
+    conn 
+    |> Plug.Conn.send_resp(200, body)
+    |> Plug.Conn.halt()
   end
 
 end

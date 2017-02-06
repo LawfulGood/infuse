@@ -22,7 +22,9 @@ use Mix.Config
 #
 
 config :infuse,
-    web_root: "docs"
+    web_root: "docs",
+    start_server: true,
+    start_observer: false
 
 config :infuse, Infuse.HTTP.RequestHandler,
     default_indicies: ['index.html', 'index.json', 'index',
@@ -34,4 +36,4 @@ config :infuse, Infuse.HTTP.RequestHandler,
 # Configuration from the imported file will override the ones defined
 # here (which is why it is important to import them last).
 #
-#     import_config "#{Mix.env}.exs"
+import_config "#{Mix.env}.exs"

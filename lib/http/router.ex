@@ -1,33 +1,20 @@
 defmodule Infuse.HTTP.Router do
-  use Plug.Router
-  use Plug.Debugger 
-  use Plug.ErrorHandler
+  use Plug.Builder
 
   plug Plug.Logger, log: :debug
-  plug :match 
-  plug :dispatch
-  plug Plug.Static,
-    at: Infuse.web_root,
-    from: :Infuse,
-    only: ~w(css robots.txt)
 
-  forward "/", to: Infuse.HTTP.Dispatch
+   plug Plug.Static,
+    at: "/",
+    from: Infuse.config_web_root
 
-  def try_static(conn) do
-    
-    case File.exists?(conn.request_path) do
-      true -> handle_static(conn)
-      false -> handle_notfound(conn)
-    end
+  plug Infuse.HTTP.SimplatePlug
 
-  end
+  plug :not_found
 
-  def handle_static(conn) do
-    
-  end
-
-  def handle_notfound(conn) do
-    send_resp(conn, 404, "oops")
+  def not_found(conn, _) do
+    conn
+    |> send_resp(404, "Could not find: " <> Infuse.config_web_root <> conn.request_path)
+    |> halt
   end
 
 end

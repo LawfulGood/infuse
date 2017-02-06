@@ -11,21 +11,21 @@
 		<link rel="stylesheet" href="/css/milligram.css">
 	</head>
 	<body>
-
-		<main class="wrapper">
-
-			<nav class="navigation">
+   
+		<main class="wrapper">   
+ 
+			<nav class="navigation"> 
 				<section class="container">
 
 					<a class="navigation-title" href="/">
-						<h1 class="title">Infuse Docs</h1>
+						<h1 class="title">Infuse Docs</h1> 
 					</a>
 				</section>
 			</nav>
 
 			<section class="container" id="examples">
         <h5 class="title">Table of contents</h5>
-        <p>
+        <p>  
           <ul>
             <li><a href="#installation">Installation</a></li>
           </ul>
@@ -39,7 +39,7 @@
 
 			<footer class="footer">
 				<section class="container">
-					<p>Designed with ♥ by <a target="_blank" href="http://cjpatoilo.com" title="CJ Patoilo">CJ Patoilo</a>. Licensed under the <a target="_blank" href="https://github.com/milligram/milligram#license" title="MIT License">MIT License</a>.</p>
+					<p>Made with ♥ by <a target="_blank" href="http://lawfulgood.co" title="Lawful Good">Lawful Good Co.</a>. Licensed under the <a target="_blank" href="https://github.com/milligram/milligram#license" title="MIT License">MIT License</a>.</p>
 				</section>
 			</footer>
 

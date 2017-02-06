@@ -7,10 +7,15 @@ defmodule Simplate do
   Opens a simplate, sends to load
   """
   def load_file(file, partial_path \\ nil) do
-    Logger.info("Simplate: Loading " <> file)
+    file = Path.absname(file)
+    rel_file = rel_path(file)
+    Logger.info("Simplate: Loading #{file} as #{rel_file}")
     {:ok, body} = File.read(file)
 
-    load(body, partial_path)
+    simplate = load(body, partial_path)
+    Infuse.Simplates.Registry.put(rel_file, simplate)
+
+    {:ok, simplate}
   end
 
   @doc """
@@ -37,6 +42,24 @@ defmodule Simplate do
       templates: Infuse.Simplates.Pagination.organize_templates(templates), 
       once_bindings: once_bindings
     }
+  end
+
+  def find_by_fullpath(path) do
+    case String.replace(path, Infuse.config_web_root(), "") |> Infuse.Simplates.Registry.get() do
+      simplate = %Simplate{} -> 
+        {:ok, simplate}
+      nil ->
+        {:error, :enoent}
+    end
+  end
+
+  def get(simplate_path) do
+    simplate = Infuse.Simplates.Registry.get(simplate_path)
+    {:ok, simplate}
+  end
+
+  def reload(simplate) do
+    
   end
 
   @doc """
@@ -74,6 +97,10 @@ defmodule Simplate do
   """
   def default_renderer do
     Application.get_env(:infuse, :default_renderer) || Infuse.Simplates.Renderers.EExRenderer
+  end
+
+  defp rel_path(full_path) do
+    String.replace(full_path, Infuse.config_web_root(), "")
   end
 
 end
