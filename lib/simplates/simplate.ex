@@ -1,7 +1,7 @@
 defmodule Simplate do
   require Logger
 
-  defstruct file: nil, routes: nil, once: nil, every: nil, templates: {}, once_bindings: nil  
+  defstruct fs_path: nil, web_path: nil, routes: nil, once: nil, every: nil, templates: {}, once_bindings: nil  
   
   @doc """
   Opens a simplate, sends to load
@@ -12,7 +12,7 @@ defmodule Simplate do
     Logger.info("Simplate: Loading #{file} as #{rel_file}")
     {:ok, body} = File.read(file)
 
-    simplate = load(body, partial_path)
+    simplate = load(body, file, partial_path)
     Infuse.Simplates.Registry.put(rel_file, simplate)
 
     {:ok, simplate}
@@ -21,7 +21,7 @@ defmodule Simplate do
   @doc """
   Takes contents, executes the first page and quotes the second page for later
   """
-  def load(contents, file \\ nil) do
+  def load(contents, fs_path \\ nil, web_path \\ nil) do
     {[once, every], templates} = Infuse.Simplates.Pagination.parse_pages(contents) |> Infuse.Simplates.Pagination.organize_pages()
 
     # Gotta redo this for now, should be moved
@@ -30,12 +30,13 @@ defmodule Simplate do
 
     {_, once_bindings} = once.renderer.render(once.compiled)
 
-    routes = determine_routes(file)
+    routes = determine_routes(web_path)
 
     # Race condition
 
     %Simplate{
-      file: file,
+      fs_path: fs_path,
+      web_path: web_path,
       routes: routes, 
       once: once,
       every: every,
@@ -58,8 +59,9 @@ defmodule Simplate do
     {:ok, simplate}
   end
 
-  def reload(_simplate) do
-    
+  def reload(simplate) do
+    Logger.info("Simplate: Reloading " <> simplate.fs_path)
+    load_file(simplate.fs_path)
   end
 
   @doc """

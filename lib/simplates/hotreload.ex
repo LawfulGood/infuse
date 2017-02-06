@@ -13,8 +13,7 @@ defmodule Infuse.Simplates.Hotreload do
   def loop() do
     receive do
       {_watcher_process, {:fs, :file_event}, {changedFile, [:modified]}} ->
-        IO.puts("Simplate: reloaded #{changedFile}")
-        {:ok, simplate} = Simplate.find_by_fullpath(changedFile)
+        {:ok, simplate} = Simplate.find_by_fullpath(to_string(changedFile))
         Simplate.reload(simplate)
         loop()
     end

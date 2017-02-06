@@ -11,7 +11,7 @@ defmodule Infuse.HTTP.SimplateDispatch do
   end
 
   def call(conn, opts) do    
-    simplate = Infuse.Simplates.Registry.get(opts.simplate.file)
+    simplate = Infuse.Simplates.Registry.get(opts.simplate.web_path)
     body = Simplate.render(simplate)
     
     conn 

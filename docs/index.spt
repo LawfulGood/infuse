@@ -21,10 +21,10 @@
 						<h1 class="title">Infuse Docs</h1> 
 					</a>
 				</section>
-			</nav>
+			</nav> 
 
 			<section class="container" id="examples">
-        <h5 class="title">Table of contents</h5>
+        <h5 class="title">Table of Contents</h5>
         <p>  
           <ul>
             <li><a href="#installation">Installation</a></li>
