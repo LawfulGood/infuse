@@ -29,14 +29,14 @@ defmodule Infuse do
   Should the server autostart 
   """
   def config_start_server do
-    Application.get_env(:infuse, :start_server) || true
+    Application.get_env(:infuse, :start_server)
   end
 
   @doc """
   Autostart observer for debugging
   """
   def config_start_observer do
-    Application.get_env(:infuse, :start_observer) || false
+    Application.get_env(:infuse, :start_observer)
   end
 
 end
