@@ -1,6 +1,13 @@
 defmodule Infuse.Simplates.SimplateTest do
   use ExUnit.Case
-  doctest Infuse
+
+  setup do
+    Infuse.Simplates.Registry.start_link
+
+    on_exit fn ->
+      Infuse.Simplates.Registry.stop
+    end
+  end
 
   test "static simplate" do 
     {:ok, simplate} = Simplate.load_file("test/fake-www/static.spt")
