@@ -1,0 +1,5 @@
+require Logger
+Logger.configure([level: :warn])
+[---]
+Logger.level()
+[---]

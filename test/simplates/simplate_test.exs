@@ -29,6 +29,14 @@ defmodule Infuse.Simplates.SimplateTest do
     assert Simplate.render(simplate, "application/json") == ~s("Hello world!")
   end
 
+  test "stateful simplate" do
+    {:ok, simplate} = Simplate.load_file("test/fake-www/stateful.spt")
+
+    {out, _} = Infuse.Simplates.Renderers.CodeRenderer.render(simplate.every.compiled, simplate.once_bindings)
+
+    assert out == :warn
+  end
+
   test "finding simplate by full path" do
     {:ok, simplate} = Simplate.load_file("test/fake-www/multipage.spt")
     res = Simplate.find_by_fullpath("/multipage.spt")
