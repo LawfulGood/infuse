@@ -1,6 +1,8 @@
 defmodule Infuse.Simplates.Hotreload do
   require Logger
 
+  @name Infuse.Simplates.Hotreload
+
   def start_link() do
     Logger.info("Worker: Started Infuse.Simplates.Hotreload")
 

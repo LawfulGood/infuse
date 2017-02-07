@@ -1,10 +1,11 @@
 defmodule Infuse.Simplates.Registry do
-  use GenServer
-  require Logger
-
   @moduledoc """
   A simple GenServer to keep track of Simplates
   """
+  use GenServer
+  require Logger
+  
+  @name Infuse.Simplates.Registry
 
 
   @doc """

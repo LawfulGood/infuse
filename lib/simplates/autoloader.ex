@@ -1,6 +1,8 @@
 defmodule Infuse.Simplates.Autoloader do
   require Logger
 
+  @name Infuse.Simplates.Autoloader
+
   def start_link(web_root) do
     Logger.info("Worker: Started Infuse.Simplates.Autoloader")
 
