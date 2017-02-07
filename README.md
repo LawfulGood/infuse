@@ -44,6 +44,7 @@ config :infuse, Infuse.HTTP.RequestHandler,
 ```
 
 ## Docker for Development
+Since I develop on Windows I find it sometimes helpful to test on linux, so I use:
 
 ```
 docker build -t infuse .
