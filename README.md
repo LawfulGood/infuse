@@ -56,3 +56,4 @@ docker run -p 8101:8101 infuse
 
 Entire inspiration and design is from [https://github.com/AspenWeb/aspen.py](https://github.com/AspenWeb/aspen.py) 
 
+Logo was made from [https://pixabay.com/p-146337/?no_redirect](https://pixabay.com/p-146337/?no_redirect). I cut out the jar top and the other jar to form the logo.
