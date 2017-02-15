@@ -3,9 +3,10 @@
 use Mix.Config
 
 config :infuse,
-    web_root: "docs",
+    web_root: "www",
     start_server: true,
-    start_observer: true
+    start_observer: true,
+    default_content_type: "text/plain"
 
 config :logger,
     device: :standard_error

@@ -3,8 +3,8 @@ defmodule Infuse.HTTP.Pipeline do
   The main HTTP pipeline for serving requests. 
 
   The firing order is:
-   * Simplate Routes
    * Static Requests
+   * Simplate Routes
    * Not Found
   """
 
@@ -16,17 +16,17 @@ defmodule Infuse.HTTP.Pipeline do
 
   plug Plug.Logger, log: :debug
 
-  plug Infuse.HTTP.SimplateRouter
-
   plug Plug.Static,
     at: "/",
-    from: Infuse.config_web_root
+    from: Infuse.config(:web_root)
+
+  plug Infuse.HTTP.SimplateRouter
 
   plug :not_found
 
   def not_found(conn, _) do
     conn
-    |> send_resp(404, "Could not find: " <> Infuse.config_web_root <> conn.request_path)
+    |> send_resp(404, "Could not find: " <> Infuse.config(:web_root) <> conn.request_path)
     |> halt
   end
 

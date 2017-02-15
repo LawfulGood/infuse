@@ -1,8 +1,0 @@
-once_var = "food"
-
-[----]
-
-every_var = "bar"
-
-[----] text/plain
-<%= once_var <> every_var %>

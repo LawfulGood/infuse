@@ -1,8 +1,9 @@
-require Logger
-[----]
-Logger.info("Hello from the index.spt")
 
-[----] text/html
+conn 
+  |> Plug.Conn.put_resp_header("neato-factor", "11")
+  
+[---]
+
 <!doctype html>
 <html lang="en">
 	<head>
@@ -23,7 +24,7 @@ Logger.info("Hello from the index.spt")
 				<section class="container">
 
 					<a class="navigation-title" href="/">
-						<h1 class="title">Infuse Docs</h1> 
+						<h1 class="title">Infuse Usage Docs</h1> 
 					</a>
 				</section>
 			</nav> 

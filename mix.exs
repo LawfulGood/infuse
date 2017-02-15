@@ -18,7 +18,7 @@ defmodule Infuse.Mixfile do
   #
   # Type "mix help compile.app" for more information
   def application do
-    [applications: [:logger, :cowboy, :plug, :fs],
+    [applications: [:logger, :cowboy, :plug, :fs, :mime, :simplates],
      mod: {Infuse, []}]
   end
 
@@ -32,10 +32,12 @@ defmodule Infuse.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [{:cowboy, "~> 1.0.0"},
+    [{:simplates, path: "../simplates/"},
+     {:cowboy, "~> 1.0.0"},
      {:plug, "~> 1.0"},
      {:dir_walker, "~> 0.0.6"},
      {:fs, "~> 2.12"},
+     {:mime, github: "elixir-lang/mime", override: true},
      {:ex_doc, "~> 0.14", only: :dev},
      {:excoveralls, "~> 0.5", only: :test}]
   end

@@ -18,6 +18,10 @@ defmodule Infuse do
     :ok
   end
 
+  def config(:web_root), do: Path.absname(Application.get_env(:infuse, :web_root) || "www")
+  def config(:start_server), do: Application.get_env(:infuse, :start_server)
+  def config(:start_observer), do: Application.get_env(:infuse, :start_observer)
+
   @doc """
   Returns a usable webroot
   """
