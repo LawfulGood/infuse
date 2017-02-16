@@ -6,8 +6,6 @@ defmodule Infuse.HTTP.SimplateRouter do
   dispatches it to Infuse.HTTP.SimplateDispatch
   """
 
-  import Plug.Conn
-
   def init(options) do
     
     options

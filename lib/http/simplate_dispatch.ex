@@ -19,11 +19,11 @@ defmodule Infuse.HTTP.SimplateDispatch do
                 |> put_status(200)
                 #|> put_resp_content_type(Simplate.default_content_type)
 
-    content_type = "text/plain"
+    content_types = []
+      |> path_content_types(pre_conn.request_path)
+      |> accept_content_types(hd(get_req_header(pre_conn, "accept")))
 
-    #IO.inspect(Simplates.Simplate.render(simplate, content_type, [conn: pre_conn]))
-    %{:output => output, :content_type => content_type} = 
-      Simplates.Simplate.render(simplate, content_type, [conn: pre_conn])
+    %{:output => output, :content_type => content_type} = try_render(simplate, content_types, [conn: pre_conn])
     
     conn = pre_conn
     
@@ -31,6 +31,38 @@ defmodule Infuse.HTTP.SimplateDispatch do
     |> put_resp_content_type(content_type)
     |> send_resp(conn.status, output)
     |> halt()
+  end
+
+  def try_render(simplate, content_types, context) do
+    found_types = Enum.filter(simplate.templates, fn({content_type, _page}) -> 
+      Enum.member?(content_types, content_type)
+    end)
+
+    unless length(found_types) >= 1 do
+      raise "could not find an acceptable template"
+    end
+
+    {acceptable_type, _} = hd(found_types)
+    
+    Simplates.Simplate.render(simplate, acceptable_type, context)
+  end
+  
+  def path_content_types(types, path) do
+    ext = path |> Path.extname() |> String.trim_leading(".")
+    if MIME.has_type?(ext) do
+      types ++ [MIME.type(ext)]
+    end
+  end
+
+  def accept_content_types(types, accept_header) do
+    new_types = Enum.map(String.split(accept_header, ","), fn(accept) ->
+      # Uses this library to deal with quality parsing, we might later use :mimeparse.best_match
+      {app, type, _} = :mimeparse.parse_mime_type(to_charlist(accept))
+      
+      "#{app}/#{type}"
+      end) 
+
+    types ++ new_types
   end
 
 end

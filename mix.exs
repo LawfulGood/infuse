@@ -4,7 +4,7 @@ defmodule Infuse.Mixfile do
   def project do
     [app: :infuse,
      version: "0.2.0",
-     elixir: "~> 1.3",
+     elixir: "~> 1.4",
      description: description(),
      package: package(),
      build_embedded: Mix.env == :prod,
@@ -18,7 +18,7 @@ defmodule Infuse.Mixfile do
   #
   # Type "mix help compile.app" for more information
   def application do
-    [applications: [:logger, :cowboy, :plug, :fs, :mime, :simplates],
+    [extra_applications: [:logger],
      mod: {Infuse, []}]
   end
 
@@ -35,9 +35,8 @@ defmodule Infuse.Mixfile do
     [{:simplates, path: "../simplates/"},
      {:cowboy, "~> 1.0.0"},
      {:plug, "~> 1.0"},
-     {:dir_walker, "~> 0.0.6"},
      {:fs, "~> 2.12"},
-     {:mime, github: "elixir-lang/mime", override: true},
+     {:mime, "~> 1.1", override: true},
      {:ex_doc, "~> 0.14", only: :dev},
      {:excoveralls, "~> 0.5", only: :test}]
   end
