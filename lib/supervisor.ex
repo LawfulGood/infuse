@@ -15,7 +15,7 @@ defmodule Infuse.Supervisor do
     ]
 
     children =
-      case Infuse.config_start_server do
+      case Infuse.config(:start_server) do
         true -> 
           Logger.info("Started Infuse Server on 8101")
           base_children ++ [Plug.Adapters.Cowboy.child_spec(:http, Infuse.HTTP.Pipeline, [], [port: 8101])]

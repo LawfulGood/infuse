@@ -3,8 +3,6 @@ defmodule Infuse.Simplates.Loader do
 
   alias Simplates.Simplate, as: Simplate
 
-  @name Infuse.Simplates.Loader
-
   def start_link(web_root) do
     Logger.info("Worker: Started Infuse.Simplates.Loader")
 

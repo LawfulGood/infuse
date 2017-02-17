@@ -1,12 +1,10 @@
 defmodule Infuse.Simplates.Hotreload do
   require Logger
 
-  @name Infuse.Simplates.Hotreload
-
   def start_link() do
     Logger.info("Worker: Started Infuse.Simplates.Hotreload")
 
-    :fs.start_link(:simplate_watcher, Infuse.config_web_root)
+    :fs.start_link(:simplate_watcher, Infuse.config(:web_root))
     :fs.subscribe(:simplate_watcher)
     
     loop()

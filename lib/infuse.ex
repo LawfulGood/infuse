@@ -7,7 +7,7 @@ defmodule Infuse do
 
     {:ok, pid} = Infuse.Supervisor.start_link
     
-    if Infuse.config_start_observer() do
+    if Infuse.config(:start_observer) do
       :observer.start()  
     end
     
@@ -18,29 +18,8 @@ defmodule Infuse do
     :ok
   end
 
-  def config(:web_root), do: Path.absname(Application.get_env(:infuse, :web_root) || "www")
-  def config(:start_server), do: Application.get_env(:infuse, :start_server)
-  def config(:start_observer), do: Application.get_env(:infuse, :start_observer)
-
-  @doc """
-  Returns a usable webroot
-  """
-  def config_web_root do
-    Path.absname(Application.get_env(:infuse, :web_root) || "www")
-  end
-
-  @doc """
-  Should the server autostart 
-  """
-  def config_start_server do
-    Application.get_env(:infuse, :start_server)
-  end
-
-  @doc """
-  Autostart observer for debugging
-  """
-  def config_start_observer do
-    Application.get_env(:infuse, :start_observer)
-  end
+  def config(:web_root), do: Path.absname(Application.get_env(:infuse, :web_root, "www"))
+  def config(:start_server), do: Application.get_env(:infuse, :start_server, true)
+  def config(:start_observer), do: Application.get_env(:infuse, :start_observer, false)
 
 end
