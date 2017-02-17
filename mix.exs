@@ -3,7 +3,7 @@ defmodule Infuse.Mixfile do
 
   def project do
     [app: :infuse,
-     version: "0.3.0",
+     version: "0.3.1",
      elixir: "~> 1.4",
      description: description(),
      package: package(),
@@ -50,7 +50,7 @@ defmodule Infuse.Mixfile do
   defp package do
     [# These are the default files included in the package
     name: :infuse,
-    files: ["lib", "mix.exs", "README.md", "LICENSE.md"],
+    files: ["src", "lib", "mix.exs", "README.md", "LICENSE.md"],
     maintainers: ["Luke Strickland"],
     licenses: ["MIT"],
     links: %{"GitHub" => "https://github.com/LawfulGood/infuse",
