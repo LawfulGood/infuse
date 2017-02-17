@@ -1,4 +1,6 @@
 
+software = "Infuse"
+
 conn 
   |> Plug.Conn.put_resp_header("neato-factor", "11")
   
@@ -24,7 +26,7 @@ conn
 				<section class="container">
 
 					<a class="navigation-title" href="/">
-						<h1 class="title">Infuse Usage Docs</h1> 
+						<h1 class="title"><%= software %> Usage Docs</h1> 
 					</a>
 				</section>
 			</nav> 

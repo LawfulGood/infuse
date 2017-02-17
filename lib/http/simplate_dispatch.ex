@@ -23,9 +23,9 @@ defmodule Infuse.HTTP.SimplateDispatch do
       |> path_content_types(pre_conn.request_path)
       |> accept_content_types(hd(get_req_header(pre_conn, "accept")))
 
-    %{:output => output, :content_type => content_type} = try_render(simplate, content_types, [conn: pre_conn])
-    
-    conn = pre_conn
+    %{:output => output, :content_type => content_type, :bindings => bindings} = try_render(simplate, content_types, [conn: pre_conn])
+
+    conn = bindings[:conn]
     
     conn 
     |> put_resp_content_type(content_type)
@@ -51,6 +51,8 @@ defmodule Infuse.HTTP.SimplateDispatch do
     ext = path |> Path.extname() |> String.trim_leading(".")
     if MIME.has_type?(ext) do
       types ++ [MIME.type(ext)]
+    else
+      types
     end
   end
 
