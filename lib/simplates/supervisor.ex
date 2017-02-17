@@ -11,7 +11,7 @@ defmodule Infuse.Simplates.Supervisor do
 
   def init(:ok) do
     children = [
-      worker(Infuse.Simplates.Registry, []),
+      #worker(Infuse.Simplates.Registry, []),
       worker(Infuse.Simplates.Loader, [Infuse.config(:web_root)]),
       worker(Task, [fn -> Infuse.Simplates.Hotreload.start_link end]),
     ]
