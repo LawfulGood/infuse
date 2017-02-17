@@ -3,7 +3,7 @@ defmodule Infuse.Mixfile do
 
   def project do
     [app: :infuse,
-     version: "0.2.0",
+     version: "0.3.0",
      elixir: "~> 1.4",
      description: description(),
      package: package(),
@@ -36,7 +36,7 @@ defmodule Infuse.Mixfile do
      {:cowboy, "~> 1.0.0"},
      {:plug, "~> 1.0"},
      {:fs, "~> 2.12"},
-     {:mime, "~> 1.1", override: true},
+     {:mime, "~> 1.1"},
      {:ex_doc, "~> 0.14", only: :dev},
      {:excoveralls, "~> 0.5", only: :test}]
   end
