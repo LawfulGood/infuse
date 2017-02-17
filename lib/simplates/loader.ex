@@ -18,16 +18,20 @@ defmodule Infuse.Simplates.Loader do
   """
   def autoload(dir) do
     Enum.map(Path.wildcard(Path.join([dir, "**", "*.spt"])), fn(v) -> 
-      simplate = Simplate.create_from_file(v)
+      load(v)      
+    end)
+  end
 
-      routes = simplate.filepath |> remove_webroot() |> determine_routes()
+  def load(path) do
+    simplate = Simplate.create_from_file(path)
 
-      # Register the routes!
-      Enum.map(routes, fn(route) -> 
-        Infuse.HTTP.SimplateRouter.register(route, Infuse.HTTP.SimplateDispatch, %{:simplate => simplate})
-        Logger.info("Dispatch: Registering #{route}")
-      end)
-      
+    routes = simplate.filepath |> remove_webroot() |> determine_routes()
+
+    # Register the routes!
+    Enum.map(routes, fn(route) -> 
+      Infuse.HTTP.SimplateRouter.unregister(route, Infuse.HTTP.SimplateDispatch)
+      Infuse.HTTP.SimplateRouter.register(route, Infuse.HTTP.SimplateDispatch, %{:simplate => simplate})
+      Logger.info("Dispatch: Registering #{route}")
     end)
   end
 

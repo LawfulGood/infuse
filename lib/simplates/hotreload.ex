@@ -15,8 +15,7 @@ defmodule Infuse.Simplates.Hotreload do
   def loop() do
     receive do
       {_watcher_process, {:fs, :file_event}, {changedFile, [:modified]}} ->
-        {:ok, simplate} = Infuse.Simplates.Registry.get(to_string(changedFile))
-        #Simplates.Simplate.reload(simplate)
+        Infuse.Simplates.Loader.load(to_string(changedFile))
         loop()
     end
   end

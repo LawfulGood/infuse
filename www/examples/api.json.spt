@@ -2,4 +2,4 @@
 IO.puts("hello from simplate")
 
 [----] application/json
-{"hello": "world"}
+{"hello": "world"} 

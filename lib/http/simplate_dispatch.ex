@@ -13,7 +13,6 @@ defmodule Infuse.HTTP.SimplateDispatch do
 
   def call(pre_conn, opts) do
     simplate = opts.simplate
-    #simplate = Infuse.Simplates.Registry.get(opts.simplate.web_path)
 
     pre_conn = pre_conn
                 |> put_status(200)
