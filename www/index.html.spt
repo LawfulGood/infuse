@@ -1,5 +1,5 @@
 <script>
-software = "Infuse"
+software = "Grove"
 
 conn 
   |> Plug.Conn.put_resp_header("neato-factor", "11")
@@ -61,7 +61,7 @@ conn
 	<body>
         <header class="header" id="home">
         <section class="container">
-          <h1 class="title">Infuse</h1>
+          <h1 class="title"><%= software %></h1>
           <p class="description">
             A simple web framework with File System Routing and Simplates
           </p>
@@ -142,7 +142,7 @@ end</pre>
           </li>
           <li>
             Start your server
-            <pre>$ mix run --no-halt</pre>
+            <pre>$ mix run --no-halt</pre>   
           </li>
           <li>
             Open your browser to: <a href="http://localhost:8101/">http://localhost:8101/</a>
@@ -165,5 +165,5 @@ end</pre>
 
 		</main>
 	</body>
-</html>
+</html>   
 </template>
