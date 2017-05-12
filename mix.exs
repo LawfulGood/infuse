@@ -32,10 +32,10 @@ defmodule Infuse.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [{:simplates, "~> 0.2.0"},
+    [{:simplates, "~> 0.4.0"},
      {:cowboy, "~> 1.0.0"},
      {:plug, "~> 1.0"},
-     {:fs, "~> 2.12"},
+     {:fs, github: "synrc/fs"},
      {:mime, "~> 1.1"},
      {:ex_doc, "~> 0.14", only: :dev},
      {:excoveralls, "~> 0.5", only: :test}]

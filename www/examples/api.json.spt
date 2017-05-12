@@ -1,5 +1,7 @@
-
+<script>
 IO.puts("hello from simplate")
+</script>
 
-[----] application/json
-{"hello": "world"} 
+<template type="application/json">
+{"hello": "world"}
+</template>

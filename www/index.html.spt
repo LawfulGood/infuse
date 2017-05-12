@@ -1,11 +1,11 @@
-
-software = "Infuse"
+<script>
+software = "Grove"
 
 conn 
   |> Plug.Conn.put_resp_header("neato-factor", "11")
-  
-[---]
+</script>
 
+<template>
 <!doctype html>
 <html lang="en">
 	<head>
@@ -17,15 +17,58 @@ conn
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css">
 		<link rel="stylesheet" href="/css/milligram.css">
-
+  
     <style>
+      body {
+        background-color: white;
+      }
+      .header {
+        background-color: #f4f5f6;
+        position: relative; 
+      }
+      .header .container {
+        border-top: 0;
+        padding-bottom: 7.5rem;
+        padding-top: 7.5rem;
+        position: relative;
+        text-align: center;
+        height: 500px
+      }
+      .simplate-example {
+          position: absolute;
+          top: 200px;
+          left: 50%;
+          width: 600px; 
+          z-index: 50;
+          margin-left: -300px;
+      } 
       .wrapper {
         width: 800px;
         margin: 0 auto;
+        background-color: white;
+        padding-top: 40px;
+        z-index: 100;
+        position: relative;
+        
+      }
+      .navigation {
+      }
+      pre {
+          padding-left: 5px; 
       }
     </style>
 	</head>
 	<body>
+        <header class="header" id="home">
+        <section class="container">
+          <h1 class="title"><%= software %></h1>
+          <p class="description">
+            A simple web framework with File System Routing and Simplates
+          </p>
+          <img src="/img/header-example.png" alt="" class="simplate-example">
+        </section>
+      </header>
+   
    
 		<main class="wrapper">   
  
@@ -65,44 +108,45 @@ conn
         <ol>
           <li>
             Start by creating a new mix application
-            <pre> $ mix new my_website</pre>
+            <pre>$ mix new my_website</pre>
           </li>
           <li>
             Now modify your <code>deps()</code> function to include Infuse.
-            <pre> def deps do
-  [{:infuse, "~> 0.2.0"}]
- end</pre>
+            <pre>def deps do
+  [{:infuse, "~> 0.3.0"}]
+end</pre>
           </li>
           <li>
             Create a <code>www</code> directory
-            <pre> $ mkdir www </pre>
+            <pre>$ mkdir www </pre>
           </li>
           <li>
             Create a new simplate called <code>index.html.spt</code> in that <code>www</code> directory
-            <pre> 
-  IO.puts(&quot;I live in a Simplate&quot;)
+            <pre>&#x3C;script&#x3E;
+  IO.puts(&#x22;I live in a Simplate&#x22;)
   rand_num = :rand.uniform(10)
+&#x3C;/script&#x3E;
 
-  &#91;----&#93;
+&#x3C;template&#x3E;
 
-  &lt;h1&gt;Hello, my favorite random number is &lt;%= rand_num %&gt;!&lt;/h1&gt;
+  &#x3C;h1&#x3E;Hello, my favorite random number is &#x3C;%= rand_num %&#x3E;!&#x3C;/h1&#x3E;
 
-  &lt;p style=&quot;font-size: 24px; line-height: 24px;&quot;&gt;
-      &lt;span style=&quot;margin-left: 80px;&quot;&gt;&#x2604;&lt;/span&gt;&lt;br /&gt;
-      &lt;br /&gt;
+  &#x3C;p style=&#x22;font-size: 24px; line-height: 24px;&#x22;&#x3E;
+      &#x3C;span style=&#x22;margin-left: 80px;&#x22;&#x3E;&#x2604;&#x3C;/span&#x3E;&#x3C;br /&#x3E;
+      &#x3C;br /&#x3E;
       &#x2603;
-  &lt;/p&gt;
+  &#x3C;/p&#x3E;
   Help save the unicode snowman!
-
+&#x3C;/template&#x3E;
 </pre>
           </li>
           <li>
             Start your server
-            <pre> $ mix run --no-halt </pre>
+            <pre>$ mix run --no-halt</pre>   
           </li>
           <li>
             Open your browser to: <a href="http://localhost:8101/">http://localhost:8101/</a>
-          </li>  
+          </li>
         </ol>
 
       </section>
@@ -121,4 +165,5 @@ conn
 
 		</main>
 	</body>
-</html>
+</html>   
+</template>
