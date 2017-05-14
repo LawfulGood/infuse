@@ -38,7 +38,8 @@ defmodule Infuse.Mixfile do
      {:fs, github: "synrc/fs"},
      {:mime, "~> 1.1"},
      {:ex_doc, "~> 0.14", only: :dev},
-     {:excoveralls, "~> 0.5", only: :test}]
+     {:excoveralls, "~> 0.5", only: :test},
+     {:csv, "~> 1.4.2", only: :test}]
   end
 
   defp description do

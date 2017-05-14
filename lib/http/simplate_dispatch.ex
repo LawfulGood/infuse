@@ -17,6 +17,12 @@ defmodule Infuse.HTTP.SimplateDispatch do
     pre_conn = pre_conn
                 |> put_status(200)
                 #|> put_resp_content_type(Simplate.default_content_type)
+    
+    # TODO: Need to review this
+    pre_conn = case get_req_header(pre_conn, "accept") do
+      [] -> put_req_header(pre_conn, "accept", Infuse.config(:default_content_type))
+      _ -> pre_conn
+    end
 
     content_types = []
       |> path_content_types(pre_conn.request_path)
