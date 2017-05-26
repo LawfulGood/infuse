@@ -32,4 +32,8 @@ defmodule Infuse.HTTP.SimplateRouter do
      true = :ets.match_delete(:simplate_routes, {path, plug, :_})
   end
 
+  def unregister_all() do
+    true = :ets.delete_all_objects(:simplate_routes)
+  end
+
 end

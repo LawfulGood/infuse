@@ -6,12 +6,14 @@ defmodule Infuse.HTTP.SimplateDispatch do
   valid and sending it here
   """
   import Plug.Conn
+  require Logger
   
   def init(opts) do
     opts
   end
 
   def call(pre_conn, opts) do
+    Logger.debug("Serving #{pre_conn.request_path} with #{opts.simplate.filepath}")
     simplate = opts.simplate
 
     pre_conn = pre_conn

@@ -1,0 +1,8 @@
+index,bar.spt,bar.txt,bar.txt.spt,%bar.spt,bar/,bar/index,/,/bar,/bar/,/bar.txt,/bar.txt/
+X,_,_,_,_,_,_,200 index,404,404,404,404
+_,X,_,_,_,_,_,404*,200 bar.spt,404,200 bar.spt,404
+_,_,X,_,_,_,_,404*,404,404,200 bar.txt,404
+_,_,_,X,_,_,_,404*,404,404,200 bar.txt.spt,404
+_,_,_,_,X,_,_,200 %bar.spt (bar=''),200 %bar.spt (bar='bar'),200 %bar.spt (bar='bar/'),200 %bar.spt (bar='bar.txt'),200 %bar.spt (bar='bar.txt/')
+_,_,_,_,_,X,_,404*,302 /bar/,404*,404,404
+_,_,_,_,_,_,X,404*,302 /bar/,200 bar/index,404,404
