@@ -1,5 +1,5 @@
 <script>
-software = "Grove"
+software = "Infuse"
 
 conn 
   |> Plug.Conn.put_resp_header("neato-factor", "11")
