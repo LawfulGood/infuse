@@ -4,6 +4,11 @@ elixir:
 otp_release:
   - 19.1
 
+addons:
+  apt:
+    packages: 
+      - inotify-tools
+
 env:
   - MIX_ENV=test
   
