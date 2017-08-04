@@ -35,7 +35,7 @@ defmodule Infuse.Mixfile do
     [{:simplates, "~> 0.4.0"},
      {:cowboy, "~> 1.0.0"},
      {:plug, "~> 1.0"},
-     {:fs, github: "synrc/fs"},
+     {:file_system, "~> 0.1.3"},
      {:mime, "~> 1.1"},
      {:ex_doc, "~> 0.14", only: :dev},
      {:excoveralls, "~> 0.5", only: :test},

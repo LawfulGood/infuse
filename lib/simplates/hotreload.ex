@@ -1,30 +1,32 @@
 defmodule Infuse.Simplates.Hotreload do
+  use GenServer
+
   require Logger
 
-  def start_link() do
-    Logger.info("Worker: Started Infuse.Simplates.Hotreload")
-    Logger.info("Hotreload: Watching " <> Infuse.config(:web_root))
-
-    :fs.start_link(:simplate_watcher, Infuse.config(:web_root))
-    :fs.subscribe(:simplate_watcher)
-    
-    loop()
-  end 
-
-  def loop() do
-    receive do
-      {_watcher_process, {:fs, :file_event}, {changedFile, [:modified]}} ->
-        Logger.info("Hotreload: #{changedFile} was updated")
-
-        IO.inspect(File.stat!("#{changedFile}"))
-        
-        # handle potential bug in inotify
-        if File.stat!("#{changedFile}").size > 0 do
-          Infuse.Simplates.Loader.load(to_string(changedFile))
-        end
-
-        loop()
-    end
+  def start_link(web_root) do
+    GenServer.start_link(__MODULE__, web_root)
   end
 
+  def init(web_root) do
+    Logger.info("Worker: Started Infuse.Simplates.Hotreload")
+
+    {:ok, watcher_pid} = FileSystem.start_link(dirs: [web_root])
+    FileSystem.subscribe(watcher_pid)
+
+    Logger.info("Worker: Started watch on " <> web_root)
+    
+    {:ok, %{watcher_pid: watcher_pid}}
+  end
+
+  def handle_info({:file_event, watcher_pid, {path, events}}, %{watcher_pid: watcher_pid}=state) do
+    Logger.info("Hotreload: #{path} was updated")
+    Infuse.Simplates.Loader.load(to_string(path))
+
+    {:noreply, state}
+  end
+
+  def handle_info({:file_event, watcher_pid, :stop}, %{watcher_pid: watcher_pid}=state) do
+
+    {:noreply, state}
+  end
 end

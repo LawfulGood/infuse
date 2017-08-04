@@ -13,7 +13,7 @@ defmodule Infuse.Simplates.Supervisor do
     children = [
       #worker(Infuse.Simplates.Registry, []),
       worker(Infuse.Simplates.Loader, [Infuse.config(:web_root)]),
-      #worker(Task, [fn -> Infuse.Simplates.Hotreload.start_link end]),
+      worker(Infuse.Simplates.Hotreload, [Infuse.config(:web_root)]),
     ]
 
     Logger.info("Supervisor: Started Infuse.Simplates.Supervisor")
