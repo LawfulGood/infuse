@@ -12,6 +12,7 @@ defmodule Infuse.HTTP.SimplateRouter do
   end
 
   def call(conn, _opts) do
+    IO.inspect(conn.request_path)
     case :ets.match_object(:simplate_routes, {conn.request_path, :_, :_}) do
       [{_path, plug, opts}] -> plug.call(conn, plug.init(opts))
       [] -> conn

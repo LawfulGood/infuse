@@ -22,5 +22,6 @@ defmodule Infuse do
   def config(:start_server), do: Application.get_env(:infuse, :start_server, true)
   def config(:start_observer), do: Application.get_env(:infuse, :start_observer, false)
   def config(:default_content_type), do: Application.get_env(:infuse, :default_content_type, "text/plain")
+  def config(:default_indicies), do: Application.get_env(:infuse, :default_indicies, ["index.html", "index.json", "index", "index.html.spt", "index.json.spt", "index.spt"])
 
 end

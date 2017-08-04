@@ -49,9 +49,7 @@ defmodule Infuse.Simplates.Loader do
   end
 
   def determine_routes(%Simplate{} = simplate) do
-  
-    replacement_route(simplate) ++ content_type_route(simplate)
-  
+    replacement_route(simplate) ++ content_type_route(simplate) ++ directory_route(simplate)
   end
 
   defp replacement_route(%Simplate{} = simplate) do
@@ -79,6 +77,21 @@ defmodule Infuse.Simplates.Loader do
       has_extension == true -> []
       true -> routes
     end
+
+    routes
+  end
+
+  defp directory_route(%Simplate{} = simplate) do
+    routes = []
+
+    default_indicies = Infuse.config(:default_indicies)
+    file_name = Path.basename(simplate.filepath)
+
+    routes = 
+      case Enum.member?(default_indicies, file_name) do
+        true -> [simplate.filepath |> clean_path() |> Path.rootname(), simplate.filepath |> clean_path()]
+        false -> routes
+      end
 
     routes
   end

@@ -9,7 +9,7 @@ defmodule Infuse.Simplates.LoaderTest do
     assert Loader.remove_webroot(orig) == "/somepath"
   end
 
-  test "determines simple route" do
+  test "determines simple route for /about/home/index.html.spt" do
     expected = ["/about/home/", "/about/home/index", "/about/home/index.html"]
 
     simplate = Simplates.Simplate.create("<script>\n</script>\n<template>\nHello, program!\n</template>", "/about/home/index.html.spt")

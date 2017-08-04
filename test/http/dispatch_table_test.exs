@@ -49,6 +49,7 @@ defmodule Infuse.HTTP.DispatchTableTest do
   setup context do
     # Delete previous test files
     {:ok, files} = File.ls(Infuse.config(:web_root))
+    files = Enum.reject(files, fn(file) -> file == ".gitignore" end)
 
     for file <- files do
       File.rm!(Path.join([Infuse.config(:web_root), file]))
