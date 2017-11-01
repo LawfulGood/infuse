@@ -20,6 +20,8 @@ defmodule Infuse.HTTP.Pipeline do
     at: "/",
     from: Infuse.config(:web_root)
 
+  plug Plug.Parsers, parsers: [:urlencoded]
+
   plug Infuse.HTTP.SimplateRouter
 
   plug :not_found
