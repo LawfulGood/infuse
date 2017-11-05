@@ -16,7 +16,6 @@ defmodule Infuse.Mixfile do
       source_url: "https://github.com/LawfulGood/infuse",
       homepage_url: "http://infuse.lawfulgood.co",
       docs: [
-        main: "guides/Getting Started",
         logo: "logo.png",
         groups_for_extras: groups_for_extras(),
         extra_section: "GUIDES",
