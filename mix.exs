@@ -2,16 +2,27 @@ defmodule Infuse.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :infuse,
-     version: "0.3.3",
-     elixir: "~> 1.4",
-     description: description(),
-     package: package(),
-     build_embedded: Mix.env == :prod,
-     start_permanent: Mix.env == :prod,
-     test_coverage: [tool: ExCoveralls],
-     preferred_cli_env: ["coveralls": :test, "coveralls.detail": :test, "coveralls.post": :test, "coveralls.html": :test],
-     deps: deps()]
+    [
+      app: :infuse,
+      version: "0.3.4",
+      elixir: "~> 1.4",
+      description: description(),
+      package: package(),
+      build_embedded: Mix.env == :prod,
+      start_permanent: Mix.env == :prod,
+      test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: ["coveralls": :test, "coveralls.detail": :test, "coveralls.post": :test, "coveralls.html": :test],
+      deps: deps(),
+      source_url: "https://github.com/LawfulGood/infuse",
+      homepage_url: "http://infuse.lawfulgood.co",
+      docs: [
+        main: "guides/Getting Started",
+        logo: "logo.png",
+        groups_for_extras: groups_for_extras(),
+        extra_section: "GUIDES",
+        extras: extras()
+      ]
+    ]
   end
 
   # Configuration for the OTP application
@@ -46,6 +57,18 @@ defmodule Infuse.Mixfile do
     """
     A simple web framework that serves from the filesystem using Simplates!
     """
+  end
+
+  defp extras do
+    [
+      "guides/Getting Started.md",
+      "guides/Simplates.md"
+    ]
+  end
+
+  defp groups_for_extras do
+    [
+    ]
   end
   
   defp package do
