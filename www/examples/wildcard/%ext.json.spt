@@ -1,0 +1,7 @@
+<script>
+IO.puts("hello from simplate")
+</script>
+
+<template type="application/json">
+{"hello": "world"}
+</template>

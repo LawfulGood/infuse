@@ -6,17 +6,25 @@ defmodule Infuse.HTTP.SimplateDispatch do
   valid and sending it here
   """
   import Plug.Conn
+  require Logger
   
   def init(opts) do
     opts
   end
 
   def call(pre_conn, opts) do
+    Logger.debug("Serving #{pre_conn.request_path} with #{opts.simplate.filepath}")
     simplate = opts.simplate
 
     pre_conn = pre_conn
                 |> put_status(200)
                 #|> put_resp_content_type(Simplate.default_content_type)
+    
+    # TODO: Need to review this
+    pre_conn = case get_req_header(pre_conn, "accept") do
+      [] -> put_req_header(pre_conn, "accept", Infuse.config(:default_content_type))
+      _ -> pre_conn
+    end
 
     content_types = []
       |> path_content_types(pre_conn.request_path)

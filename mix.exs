@@ -35,10 +35,11 @@ defmodule Infuse.Mixfile do
     [{:simplates, "~> 0.4.1"},
      {:cowboy, "~> 1.0.0"},
      {:plug, "~> 1.4.3"},
-     {:fs, "~> 3.4"},
+     {:file_system, "~> 0.1.3"},
      {:mime, "~> 1.1"},
      {:ex_doc, "~> 0.14", only: :dev},
-     {:excoveralls, "~> 0.5", only: :test}]
+     {:excoveralls, "~> 0.5", only: :test},
+     {:csv, "~> 1.4.2", only: :test}]
   end
 
   defp description do

@@ -5,5 +5,5 @@ use Mix.Config
 config :infuse,
     web_root: "test/fake-www",
     start_server: false,
-    start_observer: false
-
+    start_observer: false,
+    default_content_type: "text/plain"
