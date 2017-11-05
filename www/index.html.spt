@@ -17,7 +17,7 @@ conn
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css">
 		<link rel="stylesheet" href="/css/milligram.css">
-  
+   
     <style>
       body {
         background-color: white;
@@ -128,7 +128,6 @@ end</pre>
 &#x3C;/script&#x3E;
 
 &#x3C;template&#x3E;
-
   &#x3C;h1&#x3E;Hello, my favorite random number is &#x3C;%= rand_num %&#x3E;!&#x3C;/h1&#x3E;
 
   &#x3C;p style=&#x22;font-size: 24px; line-height: 24px;&#x22;&#x3E;

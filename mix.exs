@@ -3,7 +3,7 @@ defmodule Infuse.Mixfile do
 
   def project do
     [app: :infuse,
-     version: "0.3.2",
+     version: "0.3.3",
      elixir: "~> 1.4",
      description: description(),
      package: package(),
@@ -32,9 +32,9 @@ defmodule Infuse.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [{:simplates, path: "../simplates"},
+    [{:simplates, "~> 0.4.1"},
      {:cowboy, "~> 1.0.0"},
-     {:plug, "~> 1.0"},
+     {:plug, "~> 1.4.3"},
      {:file_system, "~> 0.1.3"},
      {:mime, "~> 1.1"},
      {:ex_doc, "~> 0.14", only: :dev},
