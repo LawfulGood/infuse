@@ -32,11 +32,12 @@ defmodule Infuse.Simplates.Loader do
 
     routes = determine_routes(simplate)
 
+    Logger.info("Dispatch: Registering " <> clean_path(simplate.filepath) <> " to " <> Enum.join(routes, ", "))
+
     # Register the routes!
     Enum.map(routes, fn(route) -> 
       Infuse.HTTP.SimplateRouter.unregister(route, Infuse.HTTP.SimplateDispatch)
       Infuse.HTTP.SimplateRouter.register(route, Infuse.HTTP.SimplateDispatch, %{:simplate => simplate})
-      Logger.info("Dispatch: Registering #{route}")
     end)
   end
 
@@ -49,7 +50,7 @@ defmodule Infuse.Simplates.Loader do
   end
 
   def determine_routes(%Simplate{} = simplate) do
-    replacement_route(simplate) ++ content_type_route(simplate) ++ directory_route(simplate)
+    replacement_route(simplate) ++ content_type_route(simplate) ++ directory_route(simplate) ++ wildcard_route(simplate)
   end
 
   defp replacement_route(%Simplate{} = simplate) do
@@ -92,6 +93,14 @@ defmodule Infuse.Simplates.Loader do
         true -> [simplate.filepath |> clean_path() |> Path.rootname(), simplate.filepath |> clean_path()]
         false -> routes
       end
+
+    routes
+  end
+
+  def wildcard_route(%Simplate{} = simplate) do
+    routes = [simplate.wild_path |> clean_path()]
+
+    IO.inspect(simplate.wild_path)
 
     routes
   end

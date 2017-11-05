@@ -13,9 +13,15 @@ defmodule Infuse.Simplates.LoaderTest do
     expected = ["/about/home/", "/about/home/index", "/about/home/index.html"]
 
     simplate = Simplates.Simplate.create("<script>\n</script>\n<template>\nHello, program!\n</template>", "/about/home/index.html.spt")
-
-    IO.inspect(Loader.determine_routes(simplate))
     
+    assert Loader.determine_routes(simplate) == expected
+  end
+
+  test "determines simple route for /about/home/%bar.html.spt" do
+    expected = ["/about/home/%wild%", "/about/home/%wild%.html"]
+
+    simplate = Simplates.Simplate.create("<script>\n</script>\n<template>\nHello, program!\n</template>", "/about/home/%bar.html.spt")
+
     assert Loader.determine_routes(simplate) == expected
   end
 
