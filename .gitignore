@@ -17,3 +17,5 @@ erl_crash.dump
 *.ez
 
 /.vscode
+/.idea
+/.elixir_ls

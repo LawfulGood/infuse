@@ -34,7 +34,6 @@ You can use [Hex](https://hex.pm/packages/infuse), to install the package:
 config :infuse,
     web_root: "example-www",
     default_content_type: "text/html",
-    default_renderer: Infuse.Simplates.Renderers.EExRenderer,
     start_server: true,
     start_observer: false
 

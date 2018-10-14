@@ -15,12 +15,7 @@ defmodule Infuse.Mixfile do
       deps: deps(),
       source_url: "https://github.com/LawfulGood/infuse",
       homepage_url: "http://infuse.lawfulgood.co",
-      docs: [
-        logo: "logo.png",
-        groups_for_extras: groups_for_extras(),
-        extra_section: "GUIDES",
-        extras: extras()
-      ]
+      docs: docs()
     ]
   end
 
@@ -58,10 +53,20 @@ defmodule Infuse.Mixfile do
     """
   end
 
+  defp docs do
+    [
+      logo: "logo.png",
+      main: "overview",
+      groups_for_extras: groups_for_extras(),
+      extra_section: "GUIDES",
+      extras: extras()
+    ]
+  end
+
   defp extras do
     [
-      "guides/Getting Started.md",
-      "guides/Simplates.md"
+      "guides/overview.md",
+      "guides/simplates.md"
     ]
   end
 
@@ -69,7 +74,7 @@ defmodule Infuse.Mixfile do
     [
     ]
   end
-  
+
   defp package do
     [# These are the default files included in the package
     name: :infuse,

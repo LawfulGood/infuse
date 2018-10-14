@@ -1,4 +1,4 @@
-## Getting Started
+## Overview
 Infuse is a filesystem router powered by [Simplates](Simplates.md). Simplates are a file format for server-side web programming. They're are a clean way of bringing your templates and code closer together. Infuse works by giving you a web_root that you can use for Simplates or static files.
 
 ## Quick Start
